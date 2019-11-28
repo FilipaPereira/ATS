@@ -1,58 +1,15 @@
 import Data.List
 import Test.QuickCheck
+import Control.Monad.State.Strict
 import Info
 
 
--- GERAR CARRO
-data Carro = Carro Tipo Marca Matricula NIF CPKm Autonomia
-            deriving Show
+-- ESTADOS
+type Gerador st a = StateT st Gen a 
 
-data Tipo = Combustao
-          | Eletrico
-          | Hibrido
-          deriving Show
+execGerador :: st -> Gerador st a -> Gen a 
+execGerador st g = evalStateT g st
 
-type Marca      = String
-type Matricula  = String
-type NIF        = String
-type CPKm       = Float
-type Autonomia  = Int
-
-genTipo :: Gen Tipo
-genTipo = frequency [(70,return Combustao),(5,return Eletrico),(25,return Hibrido)]
-
-genCPKm :: Gen CPKm
-genCPKm = choose (0.1,2)
-
-
-genAutonomia :: Gen Autonomia
-genAutonomia =  frequency [(70, elements autCombustao),(5, elements autEletrico),(25, elements autHibrido)]
-
-{-
-genMarca :: Gen Marca
-genMarca = frequency [(120,return "Renault"),(35,return "Mercedes"),(50,return "Ford"),(15,return "Seat"),(12,return "Porsche"),(4,return "Ferrari")]
---}
-
-genMarca :: Gen Marca
-genMarca = frequency (f l)
-        where l = listaCarrosFreq
-              f [] = []
-              f ((x,y):xs) = (y,return x) : f xs
-
-genMatricula :: Gen Matricula
-genMatricula = do a <- vectorOf 2 $ elements ['A'..'Z']
-                  b <- vectorOf 2 $ elements ['0'..'9']
-                  c <- vectorOf 2 $ elements ['0'..'9']
-                  return (a ++ "-" ++ b ++ "-" ++ c ++ "")
-
-genCarro :: [NIF] -> Gen Carro
-genCarro nifs = do tipo <- genTipo
-                   marca <- genMarca
-                   mat <- genMatricula
-                   nif <- elements nifs
-                   cp <- genCPKm
-                   aut <- genAutonomia
-                   return (Carro tipo marca mat nif cp aut)
 
 --GERAR PROPRIETARIO
 
@@ -78,15 +35,6 @@ genEmail nif = do
 genMorada :: Gen String
 genMorada = elements listaLocais
 
-{-
-genProp :: Gen Prop
-genProp = do 
-          nome <- genNome
-          nif <- elements nifs
-          email <- genEmail nif
-          morada <- genMorada
-          return (Prop nome nif email morada)
--}
 
 genProps :: Int -> [String] -> Gen [Prop]
 genProps 0 _ = return []
@@ -123,3 +71,103 @@ genClientes n nifs = do
                     cordY <- genCoord
                     let c = (Cliente nome nif email morada cordX cordY)
                     return (c:cls)
+
+
+-- GERAR CARRO
+data Carro = Carro Tipo Marca Matricula NIF VelocidadeMed PpKm CPKm Autonomia CoordX CoordY
+            deriving Show
+
+data Tipo = Gasolina
+          | Eletrico
+          | Hibrido
+          deriving Show
+
+type Marca         = String
+type Matricula     = String
+type NIF           = String
+type VelocidadeMed = Int
+type PpKm          = Float
+type CPKm          = Float
+type Autonomia     = Int
+
+genTipo :: Gen Tipo
+genTipo = frequency [(70,return Gasolina),(5,return Eletrico),(25,return Hibrido)]
+
+genCPKm :: Gen CPKm
+genCPKm = choose (0.1,2)
+
+
+genAutonomia :: Gen Autonomia
+genAutonomia =  frequency [(70, elements autGasolina),(5, elements autEletrico),(25, elements autHibrido)]
+
+
+genMarca :: Gen Marca
+genMarca = frequency (f l)
+        where l = listaCarrosFreq
+              f [] = []
+              f ((x,y):xs) = (y,return x) : f xs
+
+genMatricula :: Gen Matricula
+genMatricula = do a <- vectorOf 2 $ elements ['A'..'Z']
+                  b <- vectorOf 2 $ elements ['0'..'9']
+                  c <- vectorOf 2 $ elements ['0'..'9']
+                  return (a ++ "-" ++ b ++ "-" ++ c ++ "")
+
+genVelocidadeMed :: Gen VelocidadeMed
+genVelocidadeMed = choose (40,120)
+
+genPrecoKm :: Gen PpKm
+genPrecoKm = choose (1.1,2.5)
+
+genCarro :: [NIF] -> Gen Carro
+genCarro nifs = do tipo <- genTipo
+                   marca <- genMarca
+                   mat <- genMatricula
+                   nif <- elements nifs
+                   v <- genVelocidadeMed
+                   pkm <- genPrecoKm
+                   cp <- genCPKm
+                   aut <- genAutonomia
+                   x <- genCoord
+                   y <- genCoord
+                   return (Carro tipo marca mat nif v pkm cp aut x y)
+
+-- GERAR ALUGUERES
+
+data Aluguer = Aluguer NIFCliente CoordX CoordY Tipo Preferencia
+             deriving Show
+
+type NIFCliente = String
+type Preferencia = String
+
+genPreferencia :: Gen Preferencia
+genPreferencia = elements ["MaisBarato","MaisPerto"]
+
+genAluguer :: [String] -> Gen Aluguer
+genAluguer nifs = do
+                  nif <- elements nifs 
+                  x <- genCoord
+                  y <- genCoord
+                  tipo <- genTipo
+                  pref <- genPreferencia
+                  return (Aluguer nif x y tipo pref) 
+
+-- GERAR CLASSIFICAÇÕES
+
+data Classificacao = Classificacao Classificado Nota
+                 deriving Show
+
+type Classificado = String
+type Nota = Int
+
+genClassificado :: [String] -> [String] -> Gen Classificado
+genClassificado clientesNifs matriculas = elements(clientesNifs++matriculas)
+
+genNota :: Gen Nota
+genNota = choose (1,100)
+
+genClassificacao :: [String] -> [String] -> Gen Classificacao
+genClassificacao clientes mats = do 
+                                 cl <- genClassificado clientes mats
+                                 n <- genNota
+                                 return (Classificacao cl n)

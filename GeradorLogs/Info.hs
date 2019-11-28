@@ -50,5 +50,5 @@ autEletrico = [450,300,340,400]
 autHibrido :: [Int]
 autHibrido = [300,290,365]
 
-autCombustao :: [Int]
-autCombustao = [390,297,420]
+autGasolina :: [Int]
+autGasolina = [390,297,420]
