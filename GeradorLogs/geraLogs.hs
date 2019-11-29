@@ -1,11 +1,65 @@
 import Data.List
 import Test.QuickCheck
+import Control.Monad
 import Control.Monad.State.Strict
 import Info
 
+-- MAIN
+main :: IO ()
+main = do 
+       users <- generate $ execGerador (genUsers 20 nifs)
+       let nifsProp = getNifsProp users
+       let nifsClientes = getNifsClientes users
+       carros <- generate $ execGerador (genCarros 5 nifsProp)
+       writeFile "logs.txt" $ unlines (users++carros)
+
+getNifsProp :: [String] -> [String]
+getNifsProp [] = []
+getNifsProp (x:xs) = if (isPrefixOf "NovoProp" x) 
+                     then ((splitSep ',' x) !! 1): getNifsProp xs 
+                     else getNifsProp xs
+
+getNifsClientes :: [String] -> [String]
+getNifsClientes [] = []
+getNifsClientes (x:xs) = if (isPrefixOf "NovoCliente" x) 
+                         then ((splitSep ',' x) !! 1): getNifsClientes xs 
+                         else getNifsClientes xs
+
+splitSep :: Eq a => a -> [a] -> [[a]]
+splitSep _ [] = []
+splitSep s l = let (l0, l1) = break (==s) l
+              in l0 : splitSep s (drop 1 l1)
+
+genUsers :: Int -> [String] -> Gerador [String]
+genUsers 0 _ = return []
+genUsers n nifs = do
+                  nif <- lift $ elements nifs
+                  let nifs' = delete nif nifs
+                  tipoU <- lift $ frequency [(40,return 1),(60,return 2)]
+                  let u = if (tipoU == 1) then (genProp nif) else (genCliente nif)
+                  ul <- u
+                  us <- genUsers (n-1) nifs'
+                  return (ul:us)
+
+genCarros :: Int -> [String] -> Gerador [String]
+genCarros 0 _ = return []
+genCarros n nifs = do 
+                   nifProp <- lift $ elements nifs
+                   car <- genCarro nifProp
+                   crs <- genCarros (n-1) nifs
+                   return (car:crs)
 
 -- ESTADOS
+data GeradorState = GeradorState StateProps StateClientes StateCarros
+            deriving Show
+
+type StateProps = [Prop]
+type StateClientes = [Cliente]
+type StateCarros = [Carro]
+
 type Gerador st a = StateT st Gen a 
+
+defaultState = GeradorState [] [] []
 
 execGerador :: st -> Gerador st a -> Gen a 
 execGerador st g = evalStateT g st
@@ -35,18 +89,15 @@ genEmail nif = do
 genMorada :: Gen String
 genMorada = elements listaLocais
 
-
-genProps :: Int -> [String] -> Gen [Prop]
-genProps 0 _ = return []
-genProps n nifs = do
-                  nif <- elements nifs
-                  let nifs' = delete nif nifs
-                  ps <- genProps (n-1) nifs'
-                  nome <- genNome
-                  email <- genEmail nif
-                  morada <- genMorada
-                  let pr = (Prop nome nif email morada)
-                  return (pr:ps)
+genProp :: String -> Gerador String
+genProp nif = do 
+              (GeradorState props cls cars) <- get
+              nome <- lift $ genNome
+              email <- lift $ genEmail nif
+              morada <- lift $ genMorada
+              let pr = (Prop nome nif email morada)
+              put (GeradorState (pr:props) cls cars)
+              return ("NovoProp:" ++ nome ++ "," ++ nif ++ "," ++ email ++ "," ++ morada ++ "\n")
 
 ---GERAR CLIENTE
 data Cliente = Cliente Nome NIF Email Morada CoordX CoordY
@@ -58,20 +109,17 @@ type CoordY = Float
 genCoord :: Gen Float
 genCoord = choose (-100.0,100.0)
 
-genClientes :: Int -> [String] -> Gen [Cliente]
-genClientes 0 _ = return []
-genClientes n nifs = do
-                    nif <- elements nifs
-                    let nifs' = delete nif nifs
-                    cls <- genClientes (n-1) nifs'
-                    nome <- genNome
-                    email <- genEmail nif
-                    morada <- genMorada
-                    cordX <- genCoord
-                    cordY <- genCoord
-                    let c = (Cliente nome nif email morada cordX cordY)
-                    return (c:cls)
-
+genCliente :: String -> Gerador String
+genCliente nif = do
+                 (GeradorState props cls cars) <- get
+                 nome <- lift $ genNome
+                 email <- lift $ genEmail nif
+                 morada <- lift $ genMorada
+                 cordX <- lift $  genCoord
+                 cordY <- lift $  genCoord
+                 let c = (Cliente nome nif email morada cordX cordY)
+                 put (GeradorState props (c:cls) cars)
+                 return ("NovoCliente:" ++ nome ++ "," ++ nif ++ "," ++ email ++ "," ++ morada ++ "," ++ (show cordX) ++ "," ++ (show cordY) ++ "\n")
 
 -- GERAR CARRO
 data Carro = Carro Tipo Marca Matricula NIF VelocidadeMed PpKm CPKm Autonomia CoordX CoordY
@@ -119,18 +167,24 @@ genVelocidadeMed = choose (40,120)
 genPrecoKm :: Gen PpKm
 genPrecoKm = choose (1.1,2.5)
 
-genCarro :: [NIF] -> Gen Carro
-genCarro nifs = do tipo <- genTipo
-                   marca <- genMarca
-                   mat <- genMatricula
-                   nif <- elements nifs
-                   v <- genVelocidadeMed
-                   pkm <- genPrecoKm
-                   cp <- genCPKm
-                   aut <- genAutonomia
-                   x <- genCoord
-                   y <- genCoord
-                   return (Carro tipo marca mat nif v pkm cp aut x y)
+
+genCarro :: String -> Gerador String
+genCarro nifProp = do 
+                   (GeradorState props cls cars) <- get
+                   tipo <- lift $ genTipo
+                   marca <- lift $ genMarca
+                   mat <- lift $ genMatricula
+                   nif <- lift $ elements nifs
+                   v <- lift $ genVelocidadeMed
+                   pkm <- lift $ genPrecoKm
+                   cp <- lift $ genCPKm
+                   aut <- lift $ genAutonomia
+                   x <- lift $ genCoord
+                   y <- lift $ genCoord
+                   let car = (Carro tipo marca mat nifProp v pkm cp aut x y)
+                   put (GeradorState props cls (car:cars))
+                   return ("NovoCarro:" ++ (show tipo) ++ "," ++ marca ++ "," ++ mat ++ "," ++ nifProp ++ ","++ (show v) ++ "," ++ (show pkm) ++ "," ++ (show cp) ++ "," ++ (show aut) ++ "," ++ (show x) ++ "," ++ (show y) ++ "\n")
+
 
 -- GERAR ALUGUERES
 
