@@ -1,50 +1,50 @@
-NovoCliente:Ema Mota,6,6@gmail.com,Odivelas,-5.6883926,-76.802315
+NovoCliente:Vitoria Freitas,6,6@live.pt,Odivelas,23.553871,24.222054
 
-NovoCliente:Barbara Nunes,12,12@hotmail.com,Coimbra,91.96234,-87.785736
+NovoCliente:Renato Magalhaes,10,10@live.pt,Setubal,-23.032295,-79.26596
 
-NovoCliente:Sara Carneiro,1,1@hotmail.com,Matosinhos,56.80443,-37.829853
+NovoCliente:Vasco Correia,12,12@hotmail.com,Guarda,-46.84603,1.1230621
 
-NovoProp:Tiago Leite,15,15@live.pt,Viseu
+NovoProp:Alexandre Machado,11,11@live.pt,Santarem
 
-NovoProp:Eduarda Batista,16,16@gmail.com,Vila Nova de Gaia
+NovoProp:Rita Nogueira,14,14@gmail.com,Odivelas
 
-NovoCliente:Joao Magalhaes,18,18@live.pt,Almada,54.794647,82.89154
+NovoCliente:Iris Sa,2,2@gmail.com,Almada,-6.429695,-18.782272
 
-NovoCliente:Manuel Esteves,3,3@live.pt,Aveiro,-87.35483,-77.133255
+NovoProp:Matilde Araujo,9,9@live.pt,Leiria
 
-NovoCliente:Daniela Mota,20,20@hotmail.com,Viana do Castelo,-49.76015,25.570236
+NovoProp:Tome Neves,22,22@hotmail.com,Maia
 
-NovoProp:Lorena Neto,11,11@gmail.com,Aveiro
+NovoCliente:Alexandre Monteiro,15,15@gmail.com,Amadora,-27.957321,-84.902725
 
-NovoCliente:Dinis Valente,4,4@live.pt,Guarda,34.40335,4.8011627
+NovoCliente:Lorenzo Pereira,8,8@live.pt,Queluz,47.904724,-28.096184
 
-NovoCliente:Nayara Marques,9,9@hotmail.com,Guarda,-62.603462,-87.32759
+NovoCliente:Bryan Neto,1,1@hotmail.com,Castelo Branco,18.672905,95.463974
 
-NovoCliente:Lia Carneiro,14,14@live.pt,Odivelas,85.39133,67.3474
+NovoProp:Isis Nogueira,13,13@live.pt,Viseu
 
-NovoCliente:Jonathan Mendes,13,13@hotmail.com,Guarda,56.32614,33.44043
+NovoProp:Luis Ferreira,17,17@gmail.com,Santarem
 
-NovoCliente:Bernardo Neto,22,22@live.pt,Evora,-71.80444,19.008804
+NovoCliente:Ana Rocha,5,5@gmail.com,Vila do Conde,-97.71764,-32.258667
 
-NovoCliente:Bruno Mendes,2,2@gmail.com,Vila do Conde,93.66736,9.137451
+NovoProp:Luena Azevedo,18,18@live.pt,Amadora
 
-NovoCliente:Melissa Simoes,19,19@gmail.com,Odivelas,86.57474,-41.74832
+NovoCliente:Bia Neto,20,20@hotmail.com,Vila Nova de Gaia,75.160324,39.166946
 
-NovoCliente:Vera Marques,7,7@hotmail.com,Coimbra,19.961723,-96.005486
+NovoCliente:Catarina Cardoso,4,4@gmail.com,Odivelas,-10.106613,91.63774
 
-NovoCliente:Eduardo Sa,8,8@gmail.com,Faro,82.04863,84.183685
+NovoProp:Juliana Fernandes,7,7@live.pt,Marinha Grande
 
-NovoCliente:Eric Barbosa,21,21@live.pt,Vila do Conde,-95.97308,84.6342
+NovoCliente:Caetana Garcia,16,16@gmail.com,Maia,-78.424324,-69.21683
 
-NovoProp:Bruno Monteiro,17,17@gmail.com,Odivelas
+NovoCliente:Ariana Fernandes,21,21@hotmail.com,Maia,17.337822,69.22839
 
-NovoCarro:Gasolina,Mercedes,BD-31-03,16,42,1.2392248,1.4337227,390,-18.88633,65.07216
+NovoCarro:Gasolina,Ford,PV-02-72,14,82,1.8365104,0.9894874,390,96.949326,97.53345
 
-NovoCarro:Gasolina,Mercedes,TI-09-38,17,112,1.8775957,0.5564281,297,-85.956505,-48.355747
+NovoCarro:Gasolina,Ford,TV-69-82,7,70,1.8712637,1.1971178,450,38.088364,-20.812904
 
-NovoCarro:Gasolina,Ford,QC-67-09,16,93,1.9649804,1.0115696,420,-68.613434,78.43552
+NovoCarro:Gasolina,Ford,ZY-08-14,9,91,2.3787484,1.6695561,300,54.903397,-27.37783
 
-NovoCarro:Hibrido,Ford,KM-64-89,11,90,1.5137948,0.37931257,390,30.362473,65.68268
+NovoCarro:Gasolina,Ford,TY-45-94,14,71,1.1653473,1.5165294,390,10.862968,-28.734573
 
-NovoCarro:Gasolina,Ford,XP-93-03,15,100,1.7291484,1.2009196,365,-85.989,57.88182
+NovoCarro:Gasolina,Ford,RA-21-59,17,95,1.3802414,1.5472283,290,-81.827034,-51.891327
 

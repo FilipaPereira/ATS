@@ -57,12 +57,12 @@ type StateProps = [Prop]
 type StateClientes = [Cliente]
 type StateCarros = [Carro]
 
-type Gerador st a = StateT st Gen a 
+type Gerador a = StateT GeradorState Gen a 
 
 defaultState = GeradorState [] [] []
 
-execGerador :: st -> Gerador st a -> Gen a 
-execGerador st g = evalStateT g st
+execGerador :: Gerador a -> Gen a 
+execGerador g = evalStateT g defaultState
 
 
 --GERAR PROPRIETARIO
