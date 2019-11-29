@@ -10,8 +10,15 @@ main = do
        users <- generate $ execGerador (genUsers 20 nifs)
        let nifsProp = getNifsProp users
        let nifsClientes = getNifsClientes users
-       carros <- generate $ execGerador (genCarros 5 nifsProp)
-       writeFile "logs.txt" $ unlines (users++carros)
+       carros <- generate $ execGerador (genCarros 3000 nifsProp)
+       alugueres <- generate $ execGerador (genAlugueres 1320 nifsClientes)
+       let mats = getMatriculas carros
+       classifs <- generate $ execGerador (genClassificacoes 132 nifsClientes mats)
+       writeFile "logs.txt" $ unlines (users++carros++alugueres++classifs)
+
+getMatriculas :: [String] -> [String]
+getMatriculas [] = []
+getMatriculas (x:xs) = ((splitSep ',' x) !! 2): getMatriculas xs
 
 getNifsProp :: [String] -> [String]
 getNifsProp [] = []
@@ -48,6 +55,23 @@ genCarros n nifs = do
                    car <- genCarro nifProp
                    crs <- genCarros (n-1) nifs
                    return (car:crs)
+
+genAlugueres :: Int -> [String] -> Gerador [String]
+genAlugueres 0 _  = return []
+genAlugueres n cls = do
+                     nifCliente <- lift $ elements cls
+                     aluguer <- genAluguer nifCliente
+                     als <- genAlugueres (n-1) cls
+                     return (aluguer:als)
+
+genClassificacoes :: Int -> [String] -> [String] -> Gerador [String]
+genClassificacoes 0 _ _ = return []
+genClassificacoes n cls mats = do
+                               nif <- lift $ elements cls
+                               m <- lift $ elements mats
+                               classif <- genClassificacao nif m
+                               cs <- genClassificacoes (n-1) cls mats 
+                               return (classif:cs)
 
 -- ESTADOS
 data GeradorState = GeradorState StateProps StateClientes StateCarros
@@ -197,14 +221,13 @@ type Preferencia = String
 genPreferencia :: Gen Preferencia
 genPreferencia = elements ["MaisBarato","MaisPerto"]
 
-genAluguer :: [String] -> Gen Aluguer
-genAluguer nifs = do
-                  nif <- elements nifs 
-                  x <- genCoord
-                  y <- genCoord
-                  tipo <- genTipo
-                  pref <- genPreferencia
-                  return (Aluguer nif x y tipo pref) 
+genAluguer :: String -> Gerador String
+genAluguer nifCliente = do
+                        x <- lift $ genCoord
+                        y <- lift $ genCoord
+                        tipo <- lift $ genTipo
+                        pref <- lift $ genPreferencia
+                        return ("Aluguer:" ++ nifCliente ++ "," ++ (show x) ++ "," ++ (show y) ++ "," ++ (show tipo) ++ "," ++ pref ++ "\n") 
 
 -- GERAR CLASSIFICAÇÕES
 
@@ -214,14 +237,14 @@ data Classificacao = Classificacao Classificado Nota
 type Classificado = String
 type Nota = Int
 
-genClassificado :: [String] -> [String] -> Gen Classificado
-genClassificado clientesNifs matriculas = elements(clientesNifs++matriculas)
+genClassificado :: String -> String -> Gen Classificado
+genClassificado c m = frequency[(40,return c),(60,return m)]
 
 genNota :: Gen Nota
 genNota = choose (1,100)
 
-genClassificacao :: [String] -> [String] -> Gen Classificacao
-genClassificacao clientes mats = do 
-                                 cl <- genClassificado clientes mats
-                                 n <- genNota
-                                 return (Classificacao cl n)
+genClassificacao :: String -> String -> Gerador String
+genClassificacao cliente mat = do 
+                               cl <- lift $ genClassificado cliente mat
+                               n <- lift $ genNota
+                               return ("Classificar:" ++ cl ++ "," ++ (show n) ++ "\n")
