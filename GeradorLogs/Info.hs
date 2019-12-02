@@ -43,6 +43,9 @@ listaNomesProprios = ["Joao","Francisco","Santiago","Afonso","Duarte","Tomas","M
 
 listaCarrosFreq :: [(String,Int)]
 listaCarrosFreq = [("Mercedes",12),("Ford",23)] -- so para testar
+                  [("Nissan",31),("Peugeot",29),("Renault",27),("Mercedes",38),("Citroen",24),("Volkswagen",25),("Opel",31),("Ford",31),
+                   ("Seat",33),("Fiat",27),("BMW",30),("Dacia",27),("Toyota",35),("Ferrari",20),("Lamborghini",22),("Tesla",24),
+                   ("Volvo",25),("Jaguar",25),("Jeep"24),("Smart",18),("Mazda",27),("Honda",32)]
 
 autEletrico :: [Int]
 autEletrico = [450,300,340,400]
