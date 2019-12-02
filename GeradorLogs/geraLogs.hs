@@ -4,49 +4,43 @@ import Control.Monad
 import Control.Monad.State.Strict
 import Info
 
--- MAIN
+-- | Função Main
 main :: IO ()
 main = do 
-       users <- generate $ execGerador (genUsers 20 nifs)
+       users <- generate $ execGerador (genUsers 2500)
        let nifsProp = getNifsProp users
        let nifsClientes = getNifsClientes users
        carros <- generate $ execGerador (genCarros 3000 nifsProp)
-       alugueres <- generate $ execGerador (genAlugueres 1320 nifsClientes)
+       alugueres <- generate $ execGerador (genAlugueres 1750 nifsClientes)
        let mats = getMatriculas carros
-       classifs <- generate $ execGerador (genClassificacoes 132 nifsClientes mats)
+       classifs <- generate $ execGerador (genClassificacoes 250 nifsClientes mats)
        writeFile "logs.txt" $ unlines (users++carros++alugueres++classifs)
 
-getMatriculas :: [String] -> [String]
-getMatriculas [] = []
-getMatriculas (x:xs) = ((splitSep ',' x) !! 2): getMatriculas xs
+-- | Estado do Gerador
+data GeradorState = GeradorState StateProps StateClientes StateCarros
+            deriving Show
 
-getNifsProp :: [String] -> [String]
-getNifsProp [] = []
-getNifsProp (x:xs) = if (isPrefixOf "NovoProp" x) 
-                     then ((splitSep ',' x) !! 1): getNifsProp xs 
-                     else getNifsProp xs
+type StateProps = [Prop]
+type StateClientes = [Cliente]
+type StateCarros = [Carro]
 
-getNifsClientes :: [String] -> [String]
-getNifsClientes [] = []
-getNifsClientes (x:xs) = if (isPrefixOf "NovoCliente" x) 
-                         then ((splitSep ',' x) !! 1): getNifsClientes xs 
-                         else getNifsClientes xs
+type Gerador a = StateT GeradorState Gen a 
 
-splitSep :: Eq a => a -> [a] -> [[a]]
-splitSep _ [] = []
-splitSep s l = let (l0, l1) = break (==s) l
-              in l0 : splitSep s (drop 1 l1)
+defaultState = GeradorState [] [] []
 
-genUsers :: Int -> [String] -> Gerador [String]
-genUsers 0 _ = return []
-genUsers n nifs = do
-                  nif <- lift $ elements nifs
-                  let nifs' = delete nif nifs
-                  tipoU <- lift $ frequency [(40,return 1),(60,return 2)]
-                  let u = if (tipoU == 1) then (genProp nif) else (genCliente nif)
-                  ul <- u
-                  us <- genUsers (n-1) nifs'
-                  return (ul:us)
+execGerador :: Gerador a -> Gen a 
+execGerador g = evalStateT g defaultState
+
+-- | Geradores
+genUsers :: Int -> Gerador [String]
+genUsers 0 = return []
+genUsers n = do
+             nif <- lift $ vectorOf 9 $ elements ['0'..'9']
+             tipoU <- lift $ frequency [(40,return 1),(60,return 2)]
+             let u = if (tipoU == 1) then (genProp nif) else (genCliente nif)
+             ul <- u
+             us <- genUsers (n-1)
+             return (ul:us)
 
 genCarros :: Int -> [String] -> Gerador [String]
 genCarros 0 _ = return []
@@ -73,24 +67,8 @@ genClassificacoes n cls mats = do
                                cs <- genClassificacoes (n-1) cls mats 
                                return (classif:cs)
 
--- ESTADOS
-data GeradorState = GeradorState StateProps StateClientes StateCarros
-            deriving Show
 
-type StateProps = [Prop]
-type StateClientes = [Cliente]
-type StateCarros = [Carro]
-
-type Gerador a = StateT GeradorState Gen a 
-
-defaultState = GeradorState [] [] []
-
-execGerador :: Gerador a -> Gen a 
-execGerador g = evalStateT g defaultState
-
-
---GERAR PROPRIETARIO
-
+-- | Gerar Proprietário
 data Prop = Prop Nome NIF Email Morada
    deriving Show
     
@@ -123,7 +101,7 @@ genProp nif = do
               put (GeradorState (pr:props) cls cars)
               return ("NovoProp:" ++ nome ++ "," ++ nif ++ "," ++ email ++ "," ++ morada ++ "\n")
 
----GERAR CLIENTE
+-- | Gerar Cliente
 data Cliente = Cliente Nome NIF Email Morada CoordX CoordY
         deriving Show
 
@@ -145,7 +123,7 @@ genCliente nif = do
                  put (GeradorState props (c:cls) cars)
                  return ("NovoCliente:" ++ nome ++ "," ++ nif ++ "," ++ email ++ "," ++ morada ++ "," ++ (show cordX) ++ "," ++ (show cordY) ++ "\n")
 
--- GERAR CARRO
+-- | Gerar Carro
 data Carro = Carro Tipo Marca Matricula NIF VelocidadeMed PpKm CPKm Autonomia CoordX CoordY
             deriving Show
 
@@ -170,7 +148,7 @@ genCPKm = choose (0.1,2)
 
 
 genAutonomia :: Gen Autonomia
-genAutonomia =  frequency [(70, elements autGasolina),(5, elements autEletrico),(25, elements autHibrido)]
+genAutonomia =  frequency [(70, choose (15,230)),(5, choose (20,180)),(25, choose (20,200))]
 
 
 genMarca :: Gen Marca
@@ -210,8 +188,7 @@ genCarro nifProp = do
                    return ("NovoCarro:" ++ (show tipo) ++ "," ++ marca ++ "," ++ mat ++ "," ++ nifProp ++ ","++ (show v) ++ "," ++ (show pkm) ++ "," ++ (show cp) ++ "," ++ (show aut) ++ "," ++ (show x) ++ "," ++ (show y) ++ "\n")
 
 
--- GERAR ALUGUERES
-
+-- | Gerar Aluguer
 data Aluguer = Aluguer NIFCliente CoordX CoordY Tipo Preferencia
              deriving Show
 
@@ -229,8 +206,7 @@ genAluguer nifCliente = do
                         pref <- lift $ genPreferencia
                         return ("Aluguer:" ++ nifCliente ++ "," ++ (show x) ++ "," ++ (show y) ++ "," ++ (show tipo) ++ "," ++ pref ++ "\n") 
 
--- GERAR CLASSIFICAÇÕES
-
+-- | Gerar Classificação
 data Classificacao = Classificacao Classificado Nota
                  deriving Show
 
@@ -248,3 +224,25 @@ genClassificacao cliente mat = do
                                cl <- lift $ genClassificado cliente mat
                                n <- lift $ genNota
                                return ("Classificar:" ++ cl ++ "," ++ (show n) ++ "\n")
+
+-- | Funções Auxiliares
+splitSep :: Eq a => a -> [a] -> [[a]]
+splitSep _ [] = []
+splitSep s l = let (l1, l2) = break (==s) l
+              in l1 : splitSep s (drop 1 l2)
+
+getMatriculas :: [String] -> [String]
+getMatriculas [] = []
+getMatriculas (x:xs) = ((splitSep ',' x) !! 2): getMatriculas xs
+
+getNifsProp :: [String] -> [String]
+getNifsProp [] = []
+getNifsProp (x:xs) = if (isPrefixOf "NovoProp" x) 
+                     then ((splitSep ',' x) !! 1): getNifsProp xs 
+                     else getNifsProp xs
+              
+getNifsClientes :: [String] -> [String]
+getNifsClientes [] = []
+getNifsClientes (x:xs) = if (isPrefixOf "NovoCliente" x) 
+                         then ((splitSep ',' x) !! 1): getNifsClientes xs 
+                         else getNifsClientes xs
