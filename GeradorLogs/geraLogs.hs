@@ -176,7 +176,6 @@ genCarro nifProp = do
                    tipo <- lift $ genTipo
                    marca <- lift $ genMarca
                    mat <- lift $ genMatricula
-                   nif <- lift $ elements nifs
                    v <- lift $ genVelocidadeMed
                    pkm <- lift $ genPrecoKm
                    cp <- lift $ genCPKm
