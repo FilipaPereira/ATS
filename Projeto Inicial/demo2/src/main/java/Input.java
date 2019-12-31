@@ -19,6 +19,7 @@ import static java.lang.System.out;
 import static java.lang.System.in;
 
 import java.io.Serializable;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -26,7 +27,7 @@ import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-public class Input {
+public class Input{
 
  /**
   * Métodos de Classe
@@ -55,7 +56,7 @@ public class Input {
  public static int lerInt(String invalido, String novo) {
      Scanner input = new Scanner(in);
      boolean ok = false; 
-     int i = 0; 
+     int i = 0;
      while(!ok) {
          try {
              i = input.nextInt();
@@ -222,7 +223,7 @@ public class Input {
          
          date = new GregorianCalendar(y, --m, d); 
          
-         //input.close();
+       //  input.close();
          return date;
      }
 }

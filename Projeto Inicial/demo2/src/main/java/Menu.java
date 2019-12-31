@@ -9,11 +9,7 @@
  * @version 20190415
  */
 
-import java.util.Arrays;  
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.InputMismatchException;
+import java.util.*;
 
 public class Menu{
     
@@ -93,16 +89,17 @@ public class Menu{
      * Método para ler o input do utilizador (opção) e que a valida. 
      */
     private int lerOpcao(){
-        int opc; 
+        int opc;
         Scanner is = new Scanner(System.in);
-        
         System.out.print("Escolha a sua opção: ");
-        try{
+
+        try {
             opc = is.nextInt();
         }
-        catch (InputMismatchException e){
+        catch (InputMismatchException e) {
             opc = -1;
         }
+
         if (opc < 0 || opc > this.opcoes.size()){
             System.out.println("Opção Inválida!");
             opc = -1;

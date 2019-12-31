@@ -156,6 +156,7 @@ public class UmCarroJaApp{
     public static void main(String[] args){
         initApp();
         initMenus();
+        //dataInicioApp = new GregorianCalendar();
         //ucj = new UmCarroJa();
         lerDadosTXT("logsPOO_carregamentoInicial.bak");
         out.println("NÚMERO UTILIZADORES: " + ucj.getNUsers());
@@ -167,8 +168,9 @@ public class UmCarroJaApp{
         lerData();
         
         ucj.alugueresEfetuados(dataInicioApp);
+
         do{
-            UmCarroJaApp.clearScreen();
+            //UmCarroJaApp.clearScreen();
             menuInicial.executa();
             switch(menuInicial.getOpcao()){
                 case 1: menuUtilizador();
@@ -187,7 +189,7 @@ public class UmCarroJaApp{
      ******************************************************************************/
      
     private static void menuUtilizador(){
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         do{
             menuUtilizador.executa();
             switch(menuUtilizador.getOpcao()){
@@ -218,7 +220,7 @@ public class UmCarroJaApp{
         String email;
         String password;
         
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         out.print("Digite o seu Email: ");
         email = Input.lerString("Email Inválido!", "Digite novamente o seu Email: ");
@@ -267,7 +269,7 @@ public class UmCarroJaApp{
         boolean existe = true;
         int tipoUser;
         
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         while(existe){
             out.print("Digite o seu Email: ");
@@ -350,7 +352,7 @@ public class UmCarroJaApp{
      ******************************************************************************/
     
     private static void menuAdmin(){
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         do{
             menuAdmin.executa();
             switch(menuAdmin.getOpcao()){
@@ -368,7 +370,7 @@ public class UmCarroJaApp{
         String matricula;
         GregorianCalendar dataInicio;
         GregorianCalendar dataFim;
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
 
         out.print("Digite a Matrícula do Veículo: ");
         matricula = Input.lerString("Matrícula Inválida!", "Digite Novamente a Matrícula do Veículo: ");
@@ -446,7 +448,7 @@ public class UmCarroJaApp{
     private static void sessaoProprietario(){
         do{
             classificarClientes();
-            clearScreen();
+            //clearScreen();
             menuProprietario.executa();
             switch(menuProprietario.getOpcao()){
                 case 1: registarVeiculoProp();
@@ -518,7 +520,7 @@ public class UmCarroJaApp{
         boolean existe = true;
         int tipoVeiculo;
         
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
        
        
        while(existe){
@@ -583,7 +585,7 @@ public class UmCarroJaApp{
         boolean disp;
         boolean existe;
         
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
        
         out.print("Digite a matricula do Veículo: ");
         matricula = Input.lerString("Matricula Inválida!", "Digite novamente a matricula do veículo: ");
@@ -608,7 +610,7 @@ public class UmCarroJaApp{
         String matricula;
         double abast;
         
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         out.print("Digite a matricula do Veículo: ");
          matricula = Input.lerString("Matricula Inválida!", "Digite novamente a matricula do veículo: ");
@@ -633,7 +635,7 @@ public class UmCarroJaApp{
         String matricula;
         double pkm;
         
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         out.print("Digite a matricula do Veículo: ");
         matricula = Input.lerString("Matricula Inválida!", "Digite novamente a matricula do veículo: ");
@@ -672,7 +674,7 @@ public class UmCarroJaApp{
 
         alugs = filterAlugueresBD(aux, dataInicio, dataFim);
 
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
 
         if(alugs.size() == 0) {
             out.print("Não existe alugures entre essas datas.");
@@ -688,7 +690,7 @@ public class UmCarroJaApp{
     private static void analisarAlugueres(){
         List<Aluguer> alugs = ucj.determinarListaEspera(ucj.getUserNIF());
         boolean rep;
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         for(Aluguer a : alugs) {
             a.toString();
@@ -704,7 +706,7 @@ public class UmCarroJaApp{
         String nifCliente;
         double newPrice;
         List<Aluguer> alugs = new ArrayList();
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         out.print("Digite a matricula do Veículo: ");
         matricula = Input.lerString("Matricula Inválida!", "Digite novamente a matricula do veículo: ");
@@ -754,7 +756,7 @@ public class UmCarroJaApp{
         GregorianCalendar fim;
         boolean existe;
         double total = 0;
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         
         out.print("Digite a matricula do Veículo: ");
         matricula = Input.lerString("Matricula Inválida!", "Digite novamente a matricula do veículo: ");
@@ -818,7 +820,7 @@ public class UmCarroJaApp{
 
         List<Aluguer> res = filterAlugueresBD(alugs, dataInicio, dataFim);
 
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         if(alugs.size() == 0) {
             out.print("Não existem alugures entre essas datas.");
         } else {
@@ -841,7 +843,7 @@ public class UmCarroJaApp{
     private static void sessaoCliente(){
         do{
             classificarVeiculos();
-            UmCarroJaApp.clearScreen();
+            //UmCarroJaApp.clearScreen();
             menuCliente.executa();
             switch(menuCliente.getOpcao()){
                 case 1: aluguerMaisProximo();
@@ -901,7 +903,7 @@ public class UmCarroJaApp{
         double latitude, longitude;
         boolean correto = false;
 
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
 
         do{
             out.print("Digite a Data de Início do Aluguer (dd-mm-aaaa): ");
@@ -1207,7 +1209,7 @@ public class UmCarroJaApp{
 
         List<Aluguer> res = filterAlugueresBD(alugs, dataInicio, dataFim);
 
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         if (res.size() == 0) {
             out.print("Não existem alugures entre essas datas.");
         } else {
@@ -1233,6 +1235,7 @@ public class UmCarroJaApp{
         try {
             ucj.guardarEstado(ficheiroDados, dataInicioApp);
         } catch (IOException e) {
+            out.println(e.getMessage());
             out.println("Erro ao gravar os dados no ficheiro " + ficheiroDados + "!");
         }
     }
@@ -1245,7 +1248,7 @@ public class UmCarroJaApp{
         String linha = null;
         String [] linhas = null;
        
-        UmCarroJaApp.clearScreen();
+        //UmCarroJaApp.clearScreen();
         try{
             inFile = new BufferedReader(new FileReader(fichtxt));
             while(!inFile.readLine().equals("Logs")){
