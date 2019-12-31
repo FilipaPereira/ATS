@@ -222,7 +222,7 @@ public class Input {
          
          date = new GregorianCalendar(y, --m, d); 
          
-         input.close();
+         //input.close();
          return date;
      }
 }

@@ -69,6 +69,7 @@ public class UmCarroJaApp{
             ObjectInputStream ois = new ObjectInputStream(fis);
             dataInicioApp = (GregorianCalendar) ois.readObject();
             ucj = (UmCarroJa) ois.readObject();
+            ois.close();
         }catch (FileNotFoundException e){
             dataInicioApp = new GregorianCalendar();
             ucj = new UmCarroJa();
@@ -137,9 +138,7 @@ public class UmCarroJaApp{
     private static void lerData(){
         GregorianCalendar dataAtual;
         out.print("Digite a Data do Dia de Hoje (dd-mm-aaaa): ");
-        do {
-            dataAtual  = Input.lerData("Data de Hoje Inválida! Digite Novamente a Data (dd-mm-aaaa): ", "Digite a Data do Dia de Hoje (dd-mm-aaaa): ");
-        }while ((!(dataInicioApp.equals(dataAtual)) || dataAtual.before(dataInicioApp)));
+        dataAtual  = Input.lerData("Data de Hoje Inválida! Digite Novamente a Data (dd-mm-aaaa): ", "Digite a Data do Dia de Hoje (dd-mm-aaaa): ");
         dataInicioApp = dataAtual;
         UmCarroJaApp.guardarDados();
     }
@@ -155,9 +154,9 @@ public class UmCarroJaApp{
     }
     
     public static void main(String[] args){
-        //initApp();
+        initApp();
         initMenus();
-        ucj = new UmCarroJa();
+        //ucj = new UmCarroJa();
         lerDadosTXT("logsPOO_carregamentoInicial.bak");
         out.println("NÚMERO UTILIZADORES: " + ucj.getNUsers());
         out.println("NÚMERO VEÍCULOS: " + ucj.getNVeiculos());
