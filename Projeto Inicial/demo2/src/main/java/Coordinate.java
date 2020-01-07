@@ -10,7 +10,7 @@
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-public class Coordinate implements Comparable<Coordinate>, Serializable{
+public class Coordinate implements Comparable<Coordinate>{
     
   private double latitude;
   private double longitude;
