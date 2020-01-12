@@ -79,14 +79,6 @@ public class UmCarroJa implements Serializable {
         return utilizadores.get(email).clone();
     }
 
-    public String getUtilizadorEmail(String nif) throws UtilizadorNaoExisteException {
-        for(String e : this.utilizadores.keySet()){
-            String[] n = e.split("@");
-            if(n[0].equals(nif))
-                return e;
-        }
-        throw new UtilizadorNaoExisteException(nif);
-    }
     /**
      * Método que devolve o NIF do utilizador que está logado.
      * @return String Devolve NIF do utilizador que tem sessão iniciada.
@@ -179,7 +171,7 @@ public class UmCarroJa implements Serializable {
 
     /**
      * Método responsável por determinar a lista de alugueres de uma viatura.
-     * @throws VeiculoNaoESeuException Exceção caso não seja o proprietário do veículo.
+     * @throws VeiculoNaoExisteException Exceção caso não seja o proprietário do veículo.
      * @param matricula  Matricula.
      * @return List<Aluguer> Lista de alugueres de um veículos.
      */
@@ -668,7 +660,7 @@ public class UmCarroJa implements Serializable {
         }
         Coordinate posCli = getPosicaoCliente();
         veiculosOrdenados.sort((a1, a2) -> {
-            if (a1.getPosicao().getDistancia(posCli) <= a2.getPosicao().getDistancia(posCli)) {
+            if (a1.getPosicao().getDistancia(posCli) < a2.getPosicao().getDistancia(posCli)) {
                 return 1;
             }
             return -1;

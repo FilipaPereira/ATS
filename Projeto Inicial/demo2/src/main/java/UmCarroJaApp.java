@@ -69,7 +69,6 @@ public class UmCarroJaApp{
             ObjectInputStream ois = new ObjectInputStream(fis);
             dataInicioApp = (GregorianCalendar) ois.readObject();
             ucj = (UmCarroJa) ois.readObject();
-            ois.close();
         }catch (FileNotFoundException e){
             dataInicioApp = new GregorianCalendar();
             ucj = new UmCarroJa();

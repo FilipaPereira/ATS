@@ -68,7 +68,7 @@ public class ParseDados{
 
     }
 
-    private static GregorianCalendar generateDate() {
+    public static GregorianCalendar generateDate() {
         int ano = new Random().ints(1950, 2000).findFirst().getAsInt();
         int mes = new Random().ints(1, 12).findFirst().getAsInt();
         int dia = new Random().ints(1, 31).findFirst().getAsInt();

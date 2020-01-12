@@ -654,7 +654,7 @@ public class UmCarroJa implements Serializable {
         Coordinate posCli = getPosicaoCliente();
         veiculosOrdenados.sort(new Comparator<Veiculo>(){
                                    public int compare(Veiculo a1, Veiculo a2) {
-                                       if (a1.getPosicao().getDistancia(posCli) <= a2.getPosicao().getDistancia(posCli)) {
+                                       if (a1.getPosicao().getDistancia(posCli) < a2.getPosicao().getDistancia(posCli)) {
                                            return 1;
                                        }
                                        return -1;

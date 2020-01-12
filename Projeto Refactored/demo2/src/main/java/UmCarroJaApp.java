@@ -1103,7 +1103,7 @@ public class UmCarroJaApp{
         UmCarroJaApp.clearScreen();
         try (BufferedReader inFile = new BufferedReader(new FileReader(fichtxt))) {
             while (!inFile.readLine().equals("Logs")) {
-                out.println(); //filler
+                out.println();
             }
             while ((linha = inFile.readLine()) != null) {
                 linhas = linha.split(":", 2);
@@ -1165,12 +1165,7 @@ public class UmCarroJaApp{
        ParDatas datas = new ParDatas(dataInicio, dataFim);
        String [] dados = linha.split(",");
 
-       try {
-           mail = ucj.getUtilizadorEmail(dados[0]);
-       }
-       catch (UtilizadorNaoExisteException e){
-           out.println(e.getMessage());
-       }
+       mail = dados[0] + "@gmail.com";
 
        try{
            x = Double.parseDouble(dados[1]);

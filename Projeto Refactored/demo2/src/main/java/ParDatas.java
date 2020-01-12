@@ -90,7 +90,7 @@ public class ParDatas implements Serializable {
         if (this.dataInicio.before(dataPedidoI) && this.dataFim.after(dataPedidoI)){
             return false;    
         }
-        /* Quando a data de pedido de aluguer se inicia antes de um periodo de aluger mas acaba durante um periodo de aluguer*/
+        /* Quando a data de pedido de aluguer se inicia antes de um periodo de aluguer mas acaba durante um periodo de aluguer*/
         return (!dataPedidoI.before(this.dataInicio) || !dataPedidoF.before(this.dataFim));
     }
     
