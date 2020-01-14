@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: VeiculoTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">main.java.UnitTests</a> ]
+</div>
+
+<h1>Coverage Summary for Class: VeiculoTest (main.java.UnitTests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">VeiculoTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.1%
+  </span>
+  <span class="absValue">
+    (27/ 29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package main.java.UnitTests;
+<i>2</i>&nbsp;import main.java.*;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import org.junit.Test;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.GregorianCalendar;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import static org.junit.Assert.*;
+<i>9</i>&nbsp;
+<b class="fc"><i>10</i>&nbsp;public class VeiculoTest {</b>
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    @Test
+<i>14</i>&nbsp;    public void tempoAteVeiculoPeJa() {
+<b class="fc"><i>15</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>16</i>&nbsp;        Coordinate pos = new Coordinate(45,18.9);</b>
+<b class="fc"><i>17</i>&nbsp;        assertEquals(613,v.tempoAteVeiculoPeJa(pos));</b>
+<i>18</i>&nbsp;
+<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Test
+<i>22</i>&nbsp;    public void tempoViagemCarroJa() {
+<b class="fc"><i>23</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>24</i>&nbsp;        Coordinate destino = new Coordinate(45,18.9);</b>
+<b class="fc"><i>25</i>&nbsp;        assertEquals(2450,v.tempoViagemCarroJa(destino));</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Test
+<i>29</i>&nbsp;    public void custoViagem() {
+<b class="fc"><i>30</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>31</i>&nbsp;        v.setPreco(2.5);</b>
+<b class="fc"><i>32</i>&nbsp;        assertEquals(58,v.custoViagem(23.2),0.0);</b>
+<b class="fc"><i>33</i>&nbsp;    }</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Test
+<i>36</i>&nbsp;    public void abastecerVeiculo() {
+<b class="fc"><i>37</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>38</i>&nbsp;        v.setConsumo(0.52);</b>
+<b class="fc"><i>39</i>&nbsp;        v.setAutonomia(15);</b>
+<i>40</i>&nbsp;
+<b class="fc"><i>41</i>&nbsp;        v.abastecerVeiculo(25);</b>
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;        assertEquals(63,v.getAutonomia());</b>
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;    }</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @Test
+<i>48</i>&nbsp;    public void verificaAutonomia() {
+<b class="fc"><i>49</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>50</i>&nbsp;        assertFalse(v.verificaAutonomia(10,60));</b>
+<i>51</i>&nbsp;
+<b class="fc"><i>52</i>&nbsp;    }</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    @Test
+<i>55</i>&nbsp;    public void addDatas() {
+<b class="fc"><i>56</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        GregorianCalendar dInicio = new GregorianCalendar();</b>
+<b class="fc"><i>59</i>&nbsp;        GregorianCalendar dFim = new GregorianCalendar();</b>
+<b class="fc"><i>60</i>&nbsp;        ParDatas pd = new ParDatas(dInicio,dFim);</b>
+<i>61</i>&nbsp;
+<b class="fc"><i>62</i>&nbsp;        v.addDatas(dInicio,dFim);</b>
+<b class="fc"><i>63</i>&nbsp;        assertTrue(v.getDatasAlugueres().contains(pd));</b>
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 21:46</div>
+</div>
+</body>
+</html>

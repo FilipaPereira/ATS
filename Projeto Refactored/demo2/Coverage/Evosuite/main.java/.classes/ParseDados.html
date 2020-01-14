@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ParseDados</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">main.java</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ParseDados (main.java)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ParseDados</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    48.3%
+  </span>
+  <span class="absValue">
+    (29/ 60)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/**
+<i>2</i>&nbsp; * Classe que contém métodos para efetuar parsing de dados.
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * 
+<i>5</i>&nbsp; * 
+<i>6</i>&nbsp; * 
+<i>7</i>&nbsp; * @version 20190415
+<i>8</i>&nbsp; */
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;package main.java;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.util.GregorianCalendar;
+<i>13</i>&nbsp;import java.util.Random;
+<i>14</i>&nbsp;import java.util.InputMismatchException;
+<i>15</i>&nbsp;import static java.lang.System.*;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;public class ParseDados{
+<i>18</i>&nbsp;
+<b class="nc"><i>19</i>&nbsp;    private ParseDados(){}</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public static Proprietario parseProprietario(String linha){
+<i>22</i>&nbsp;        String nome;
+<i>23</i>&nbsp;        String nif;
+<i>24</i>&nbsp;        String email;
+<i>25</i>&nbsp;        String morada;
+<b class="fc"><i>26</i>&nbsp;        String [] dados = linha.split(&quot;,&quot;);</b>
+<b class="fc"><i>27</i>&nbsp;        GregorianCalendar date = generateDate();</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;        nome = dados[0];</b>
+<b class="fc"><i>30</i>&nbsp;        nif = dados[1];</b>
+<b class="fc"><i>31</i>&nbsp;        email = dados[2];</b>
+<b class="fc"><i>32</i>&nbsp;        morada = dados[3];</b>
+<i>33</i>&nbsp;
+<b class="fc"><i>34</i>&nbsp;        Proprietario prop = new Proprietario(nome, nif, email, nif, morada, date);</b>
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;        return prop.clone();</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    public static Cliente parseCliente(String linha){
+<i>40</i>&nbsp;        String nome;
+<i>41</i>&nbsp;        String nif;
+<i>42</i>&nbsp;        String email;
+<i>43</i>&nbsp;        String morada;
+<b class="fc"><i>44</i>&nbsp;        String [] dados = linha.split(&quot;,&quot;);</b>
+<b class="fc"><i>45</i>&nbsp;        GregorianCalendar date = generateDate();</b>
+<b class="fc"><i>46</i>&nbsp;        double x = 0.0;</b>
+<b class="fc"><i>47</i>&nbsp;        double y = 0.0;</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;
+<b class="fc"><i>50</i>&nbsp;        nome = dados[0];</b>
+<b class="fc"><i>51</i>&nbsp;        nif = dados[1];</b>
+<b class="fc"><i>52</i>&nbsp;        email = dados[2];</b>
+<b class="fc"><i>53</i>&nbsp;        morada = dados[3];</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;        try {
+<b class="fc"><i>56</i>&nbsp;            x = Double.parseDouble(dados[4]);</b>
+<b class="nc"><i>57</i>&nbsp;            y = Double.parseDouble(dados[5]);</b>
+<i>58</i>&nbsp;        }
+<b class="nc"><i>59</i>&nbsp;        catch(InputMismatchException exc){</b>
+<b class="nc"><i>60</i>&nbsp;            out.println(exc.getMessage());</b>
+<b class="nc"><i>61</i>&nbsp;        }</b>
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;        Coordinate cords = new Coordinate(x,y);</b>
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;        Cliente cli = new Cliente(nome, nif, email, nif, morada, date, cords);</b>
+<i>66</i>&nbsp;
+<b class="nc"><i>67</i>&nbsp;        return cli.clone();</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public static GregorianCalendar generateDate() {
+<b class="fc"><i>72</i>&nbsp;        int ano = new Random().ints(1950, 2000).findFirst().getAsInt();</b>
+<b class="fc"><i>73</i>&nbsp;        int mes = new Random().ints(1, 12).findFirst().getAsInt();</b>
+<b class="fc"><i>74</i>&nbsp;        int dia = new Random().ints(1, 31).findFirst().getAsInt();</b>
+<b class="fc"><i>75</i>&nbsp;        return new GregorianCalendar(ano, mes, dia);</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    public static Veiculo parseVeiculo(String linha){
+<b class="fc"><i>79</i>&nbsp;        String [] dados = linha.split(&quot;,&quot;);</b>
+<i>80</i>&nbsp;
+<b class="fc"><i>81</i>&nbsp;        switch(dados[0]){</b>
+<i>82</i>&nbsp;            case &quot;Electrico&quot;:
+<b class="fc"><i>83</i>&nbsp;                Veiculo ce = parseCarro(linha, 1);</b>
+<b class="nc"><i>84</i>&nbsp;                return ce.clone();</b>
+<i>85</i>&nbsp;            case &quot;Hibrido&quot;:
+<b class="fc"><i>86</i>&nbsp;                Veiculo ch = parseCarro(linha,2);</b>
+<b class="nc"><i>87</i>&nbsp;                return ch.clone();</b>
+<i>88</i>&nbsp;            case &quot;Gasolina&quot;:
+<b class="fc"><i>89</i>&nbsp;                Veiculo cg = parseCarro(linha,3);</b>
+<b class="nc"><i>90</i>&nbsp;                return cg.clone();</b>
+<i>91</i>&nbsp;            default: break;
+<i>92</i>&nbsp;        }
+<b class="fc"><i>93</i>&nbsp;        return new Veiculo();</b>
+<i>94</i>&nbsp;    }
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    private static Veiculo parseCarro(String linha, int type){
+<i>97</i>&nbsp;        String marca;
+<i>98</i>&nbsp;        String matricula;
+<i>99</i>&nbsp;        String nif;
+<b class="fc"><i>100</i>&nbsp;        String [] dados = linha.split(&quot;,&quot;);</b>
+<i>101</i>&nbsp;        int velocidade;
+<i>102</i>&nbsp;        int autonomia;
+<i>103</i>&nbsp;        double x;
+<i>104</i>&nbsp;        double y;
+<i>105</i>&nbsp;        double preco;
+<i>106</i>&nbsp;        double consumo;
+<i>107</i>&nbsp;
+<b class="fc"><i>108</i>&nbsp;        marca = dados[1];</b>
+<b class="nc"><i>109</i>&nbsp;        matricula = dados[2];</b>
+<b class="nc"><i>110</i>&nbsp;        nif = dados[3];</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;        try {
+<b class="nc"><i>113</i>&nbsp;            velocidade = Integer.parseInt(dados[4]);</b>
+<b class="nc"><i>114</i>&nbsp;            preco = Double.parseDouble(dados[5]);</b>
+<b class="nc"><i>115</i>&nbsp;            consumo = Double.parseDouble(dados[6]);</b>
+<b class="nc"><i>116</i>&nbsp;            autonomia = Integer.parseInt(dados[7]);</b>
+<b class="nc"><i>117</i>&nbsp;            x = Double.parseDouble(dados[8]);</b>
+<b class="nc"><i>118</i>&nbsp;            y = Double.parseDouble(dados[9]);</b>
+<i>119</i>&nbsp;        }
+<b class="nc"><i>120</i>&nbsp;        catch(InputMismatchException exc){</b>
+<b class="nc"><i>121</i>&nbsp;            out.println(exc.getMessage());</b>
+<b class="nc"><i>122</i>&nbsp;            return new Veiculo();</b>
+<b class="nc"><i>123</i>&nbsp;        }</b>
+<i>124</i>&nbsp;
+<b class="nc"><i>125</i>&nbsp;        Coordinate cords = new Coordinate(x,y);</b>
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;        if(type == 1){</b>
+<i>128</i>&nbsp;            //Eletrico
+<b class="nc"><i>129</i>&nbsp;            return new CarroEletrico(marca, matricula, nif, velocidade, preco, consumo,</b>
+<i>130</i>&nbsp;                    autonomia, cords, true);
+<i>131</i>&nbsp;        }
+<b class="nc"><i>132</i>&nbsp;        else if(type == 2){</b>
+<i>133</i>&nbsp;            // Hibrido
+<b class="nc"><i>134</i>&nbsp;            return new CarroHibrido(marca, matricula, nif, velocidade, preco, consumo,</b>
+<i>135</i>&nbsp;                    autonomia, cords, true);
+<i>136</i>&nbsp;        }
+<b class="nc"><i>137</i>&nbsp;        else if (type == 3){</b>
+<i>138</i>&nbsp;            //Gasolina
+<b class="nc"><i>139</i>&nbsp;            return new CarroGasolina(marca, matricula, nif, velocidade, preco, consumo,</b>
+<i>140</i>&nbsp;                    autonomia, cords, true);
+<i>141</i>&nbsp;        }
+<b class="nc"><i>142</i>&nbsp;        else return new Veiculo();</b>
+<i>143</i>&nbsp;    }
+<i>144</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 19:02</div>
+</div>
+</body>
+</html>

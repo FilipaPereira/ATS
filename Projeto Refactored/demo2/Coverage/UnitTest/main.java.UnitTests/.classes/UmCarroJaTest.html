@@ -1,0 +1,671 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UmCarroJaTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">main.java.UnitTests</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UmCarroJaTest (main.java.UnitTests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UmCarroJaTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (28/ 28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97%
+  </span>
+  <span class="absValue">
+    (352/ 363)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package main.java.UnitTests;
+<i>2</i>&nbsp;import main.java.*;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import org.junit.Test;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.*;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import static org.junit.Assert.*;
+<i>9</i>&nbsp;
+<b class="fc"><i>10</i>&nbsp;public class UmCarroJaTest {</b>
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    @Test
+<i>13</i>&nbsp;    public void registarUtilizador() throws UtilizadorNaoExisteException, UtilizadorJaExisteException {
+<b class="fc"><i>14</i>&nbsp;        Coordinate cords = new Coordinate(12.3,-21.5);</b>
+<b class="fc"><i>15</i>&nbsp;        Cliente cl = new Cliente(&quot;Bruna&quot;, &quot;54321&quot;, &quot;54321@gmail.com&quot;, &quot;54321&quot;, &quot;Braga&quot;, new GregorianCalendar(), cords);</b>
+<b class="fc"><i>16</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>17</i>&nbsp;        ucj.registarUtilizador(cl);</b>
+<b class="fc"><i>18</i>&nbsp;        assertEquals(ucj.getUtilizador(&quot;54321@gmail.com&quot;),cl);</b>
+<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Test(expected = UtilizadorNaoExisteException.class)
+<i>22</i>&nbsp;    public void iniciarSessao() throws UtilizadorNaoExisteException, PasswordIncorretaException {
+<b class="fc"><i>23</i>&nbsp;        Coordinate cords = new Coordinate(12.3,-21.5);</b>
+<b class="fc"><i>24</i>&nbsp;        Cliente cl = new Cliente(&quot;Bruna&quot;, &quot;54321&quot;, &quot;54321@gmail.com&quot;, &quot;54321&quot;, &quot;Braga&quot;, new GregorianCalendar(), cords);</b>
+<b class="fc"><i>25</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>26</i>&nbsp;
+<b class="fc"><i>27</i>&nbsp;        ucj.iniciarSessao(cl.getEmail(),cl.getPassword());</b>
+<b class="nc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Test
+<i>31</i>&nbsp;    public void existeUtilizador() {
+<b class="fc"><i>32</i>&nbsp;        Coordinate cords = new Coordinate(12.3,-21.5);</b>
+<b class="fc"><i>33</i>&nbsp;        Cliente cl = new Cliente(&quot;Bruna&quot;, &quot;54321&quot;, &quot;54321@gmail.com&quot;, &quot;54321&quot;, &quot;Braga&quot;, new GregorianCalendar(), cords);</b>
+<b class="fc"><i>34</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;        try {
+<b class="fc"><i>37</i>&nbsp;            ucj.registarUtilizador(cl);</b>
+<b class="fc"><i>38</i>&nbsp;        } catch (UtilizadorJaExisteException e) { System.out.println(e.getMessage()); }</b>
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;        assertTrue(ucj.existeUtilizador(cl.getEmail()));</b>
+<b class="fc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    @Test(expected = NaoExistemClientesException.class)
+<i>45</i>&nbsp;    public void get10ClientesKM() throws NaoExistemClientesException {
+<b class="fc"><i>46</i>&nbsp;        Proprietario p1 = new Proprietario();</b>
+<b class="fc"><i>47</i>&nbsp;        Proprietario p2 = new Proprietario();</b>
+<b class="fc"><i>48</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;        try {
+<b class="fc"><i>51</i>&nbsp;            ucj.registarUtilizador(p1);</b>
+<b class="fc"><i>52</i>&nbsp;            ucj.registarUtilizador(p2);</b>
+<b class="nc"><i>53</i>&nbsp;        } catch (UtilizadorJaExisteException e) { System.out.println(e.getMessage()); }</b>
+<b class="fc"><i>54</i>&nbsp;        ucj.get10ClientesKm();</b>
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    @Test
+<i>59</i>&nbsp;    public void registarVeiculo() {
+<b class="fc"><i>60</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>61</i>&nbsp;        Veiculo v = new Veiculo(&quot;Mazda&quot;,&quot;FF-23-12&quot;,&quot;54321&quot;,95,1.35,0.5432,150,</b>
+<i>62</i>&nbsp;                        new Coordinate(-13.9,24-67),false);
+<i>63</i>&nbsp;        try {
+<b class="fc"><i>64</i>&nbsp;          ucj.registarVeiculo(v);</b>
+<b class="fc"><i>65</i>&nbsp;        }catch (VeiculoJaExisteException e) { System.out.println(e.getMessage()); }</b>
+<b class="fc"><i>66</i>&nbsp;        assertTrue(ucj.existeVeiculo(&quot;FF-23-12&quot;));</b>
+<b class="fc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    @Test
+<i>71</i>&nbsp;    public void existeVeiculo() throws VeiculoJaExisteException{
+<b class="fc"><i>72</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>73</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<i>74</i>&nbsp;
+<b class="fc"><i>75</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<b class="fc"><i>76</i>&nbsp;        assertTrue(ucj.existeVeiculo(v.getMatricula()));</b>
+<b class="fc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    @Test
+<i>80</i>&nbsp;    public void alugueresClassificarCliente() throws UtilizadorJaExisteException, VeiculoJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, NaoExistemAlugueresException {
+<b class="fc"><i>81</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>82</i>&nbsp;        List&lt;Aluguer&gt; als = new ArrayList&lt;&gt;();</b>
+<i>83</i>&nbsp;        //Criação de Proprietário e Veiculo
+<b class="fc"><i>84</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>85</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>86</i>&nbsp;        p.setNIF(&quot;123&quot;);</b>
+<b class="fc"><i>87</i>&nbsp;        v.setNIF(&quot;123&quot;);</b>
+<b class="fc"><i>88</i>&nbsp;        v.setMatricula(&quot;AA-12-12&quot;);</b>
+<b class="fc"><i>89</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<b class="fc"><i>90</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<i>91</i>&nbsp;        //Criação de Alugueres
+<b class="fc"><i>92</i>&nbsp;        Aluguer a1 = new Aluguer(&quot;&quot;,&quot;AA-12-12&quot;,new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>93</i>&nbsp;        Aluguer a2 = new Aluguer(&quot;&quot;,&quot;AA-12-12&quot;,new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>94</i>&nbsp;        Aluguer a3 = new Aluguer(&quot;&quot;,&quot;AA-12-12&quot;,new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>95</i>&nbsp;        Aluguer a4 = new Aluguer(&quot;&quot;,&quot;AA-12-12&quot;,new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));//N realizado</b>
+<b class="fc"><i>96</i>&nbsp;        a1.setEstadoClassificacao(3); //Já foram efetuadas as classificações</b>
+<b class="fc"><i>97</i>&nbsp;        a2.setEstadoClassificacao(2); //Só o cliente é que classificou</b>
+<b class="fc"><i>98</i>&nbsp;        a1.setRealizado(true);</b>
+<b class="fc"><i>99</i>&nbsp;        a2.setRealizado(true);</b>
+<b class="fc"><i>100</i>&nbsp;        a3.setRealizado(true);</b>
+<b class="fc"><i>101</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>102</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<b class="fc"><i>103</i>&nbsp;        ucj.registaAluguer(a3);</b>
+<b class="fc"><i>104</i>&nbsp;        ucj.registaAluguer(a4);</b>
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;        //Inicio de sessao e colocar o resultado esperado no array als
+<b class="fc"><i>107</i>&nbsp;        ucj.iniciarSessao(&quot;&quot;,&quot;&quot;);</b>
+<b class="fc"><i>108</i>&nbsp;        als.add(a2);</b>
+<b class="fc"><i>109</i>&nbsp;        als.add(a3);</b>
+<i>110</i>&nbsp;
+<b class="fc"><i>111</i>&nbsp;        assertEquals(als,ucj.alugueresClassificarCliente());</b>
+<b class="fc"><i>112</i>&nbsp;    }</b>
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    @Test
+<i>115</i>&nbsp;    public void classificarCliente() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException {
+<b class="fc"><i>116</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>117</i>&nbsp;        Coordinate cords = new Coordinate(12.3,-21.5);</b>
+<b class="fc"><i>118</i>&nbsp;        Cliente cl = new Cliente(&quot;Bruna&quot;, &quot;54321&quot;, &quot;54321@gmail.com&quot;, &quot;54321&quot;, &quot;Braga&quot;, new GregorianCalendar(), cords);</b>
+<b class="fc"><i>119</i>&nbsp;        cl.setClassificacao(90);</b>
+<b class="fc"><i>120</i>&nbsp;        cl.setNAlugueres(5);</b>
+<b class="fc"><i>121</i>&nbsp;        ucj.registarUtilizador(cl);</b>
+<b class="fc"><i>122</i>&nbsp;        ucj.iniciarSessao(cl.getEmail(),cl.getPassword());</b>
+<i>123</i>&nbsp;        //Aluguer
+<b class="fc"><i>124</i>&nbsp;        Aluguer a = new Aluguer(cl.getEmail(),&quot;AA-12-12&quot;,new GregorianCalendar(),new GregorianCalendar(),cords);</b>
+<b class="fc"><i>125</i>&nbsp;        ucj.classificarCliente(a,70);</b>
+<b class="fc"><i>126</i>&nbsp;        Cliente c = (Cliente) ucj.getUtilizador(cl.getEmail());</b>
+<b class="fc"><i>127</i>&nbsp;        assertEquals(32, c.getClassificacao());</b>
+<b class="fc"><i>128</i>&nbsp;        assertEquals(1,a.getEstadoClassificacao());</b>
+<b class="fc"><i>129</i>&nbsp;    }</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    @Test(expected = VeiculoNaoExisteException.class)
+<i>133</i>&nbsp;    public void sinalizarDisponibilidade() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoNaoESeuException, VeiculoNaoExisteException {
+<b class="fc"><i>134</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>135</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>136</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<b class="fc"><i>137</i>&nbsp;        ucj.iniciarSessao(p.getEmail(),p.getPassword());</b>
+<b class="fc"><i>138</i>&nbsp;        ucj.sinalizarDisponibilidade(&quot;AA-12-12&quot;,false);</b>
+<i>139</i>&nbsp;
+<b class="nc"><i>140</i>&nbsp;    }</b>
+<i>141</i>&nbsp;
+<i>142</i>&nbsp;    @Test(expected = VeiculoNaoESeuException.class)
+<i>143</i>&nbsp;    public void abastecerVeiculo() throws UtilizadorJaExisteException, VeiculoJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoNaoESeuException, VeiculoNaoExisteException {
+<b class="fc"><i>144</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>145</i>&nbsp;        //Criar 2 proprietarios e 1 veiculo para o 1º proprietario
+<b class="fc"><i>146</i>&nbsp;        Proprietario p1 = new Proprietario(&quot;a&quot;,&quot;1234&quot;,&quot;a&quot;,&quot;123&quot;,&quot;&quot;,new GregorianCalendar());</b>
+<b class="fc"><i>147</i>&nbsp;        Proprietario p2 = new Proprietario(&quot;b&quot;,&quot;4567&quot;,&quot;b&quot;,&quot;456&quot;,&quot;&quot;,new GregorianCalendar());</b>
+<b class="fc"><i>148</i>&nbsp;        ucj.registarUtilizador(p1);</b>
+<b class="fc"><i>149</i>&nbsp;        ucj.registarUtilizador(p2);</b>
+<b class="fc"><i>150</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>151</i>&nbsp;        v.setMatricula(&quot;AA-12-12&quot;);</b>
+<b class="fc"><i>152</i>&nbsp;        v.setNIF(p1.getNIF());</b>
+<b class="fc"><i>153</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>154</i>&nbsp;        //Iniciar sessão com o 2º proprietario que vai tentar abastecer
+<b class="fc"><i>155</i>&nbsp;        ucj.iniciarSessao(p2.getEmail(),p2.getPassword());</b>
+<b class="fc"><i>156</i>&nbsp;        ucj.abastecerVeiculo(v.getMatricula(),15.8);</b>
+<i>157</i>&nbsp;
+<i>158</i>&nbsp;
+<b class="nc"><i>159</i>&nbsp;    }</b>
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;    @Test
+<i>162</i>&nbsp;    public void determinarListaEspera() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException {
+<b class="fc"><i>163</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>164</i>&nbsp;        List&lt;Aluguer&gt; alugs = new ArrayList&lt;&gt;();</b>
+<i>165</i>&nbsp;
+<b class="fc"><i>166</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>167</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<b class="fc"><i>168</i>&nbsp;        ucj.iniciarSessao(p.getEmail(),p.getPassword());</b>
+<i>169</i>&nbsp;
+<b class="fc"><i>170</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>171</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>172</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>173</i>&nbsp;
+<b class="fc"><i>174</i>&nbsp;        Aluguer a1 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>175</i>&nbsp;        Aluguer a2 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>176</i>&nbsp;        Aluguer a3 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>177</i>&nbsp;        a1.setListaEspera(false);</b>
+<b class="fc"><i>178</i>&nbsp;        alugs.add(a1);</b>
+<b class="fc"><i>179</i>&nbsp;        alugs.add(a2);</b>
+<b class="fc"><i>180</i>&nbsp;        alugs.add(a3);</b>
+<i>181</i>&nbsp;
+<i>182</i>&nbsp;        //Adicionar os que estao na lista de espera
+<b class="fc"><i>183</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<b class="fc"><i>184</i>&nbsp;        ucj.registaAluguer(a3);</b>
+<i>185</i>&nbsp;
+<b class="fc"><i>186</i>&nbsp;        List&lt;Aluguer&gt; res = ucj.determinarListaEspera(p.getNIF());</b>
+<i>187</i>&nbsp;
+<b class="fc"><i>188</i>&nbsp;        assertEquals(ucj.determinarListaEspera(p.getNIF()),alugs);</b>
+<i>189</i>&nbsp;
+<b class="nc"><i>190</i>&nbsp;    }</b>
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;    @Test
+<i>193</i>&nbsp;    public void respostaProp() throws VeiculoJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException {
+<b class="fc"><i>194</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>195</i>&nbsp;
+<b class="fc"><i>196</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>197</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<b class="fc"><i>198</i>&nbsp;        ucj.iniciarSessao(p.getEmail(),p.getPassword());</b>
+<i>199</i>&nbsp;
+<b class="fc"><i>200</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>201</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>202</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>203</i>&nbsp;
+<b class="fc"><i>204</i>&nbsp;        Aluguer a1 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>205</i>&nbsp;        Aluguer a2 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<i>206</i>&nbsp;
+<b class="fc"><i>207</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>208</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<i>209</i>&nbsp;
+<b class="fc"><i>210</i>&nbsp;        ucj.respostaProp(true, a2);</b>
+<i>211</i>&nbsp;
+<b class="fc"><i>212</i>&nbsp;        assertFalse(a2.getListaEspera());</b>
+<b class="fc"><i>213</i>&nbsp;        assertTrue(a2.getAceite());</b>
+<b class="fc"><i>214</i>&nbsp;    }</b>
+<i>215</i>&nbsp;
+<i>216</i>&nbsp;    @Test
+<i>217</i>&nbsp;    public void determinarListaAlugCli() throws VeiculoNaoESeuException, UtilizadorNaoExisteException, VeiculoJaExisteException, PasswordIncorretaException, UtilizadorJaExisteException {
+<b class="fc"><i>218</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<b class="fc"><i>219</i>&nbsp;        List&lt;Aluguer&gt; alugs = new ArrayList&lt;&gt;();</b>
+<i>220</i>&nbsp;
+<b class="fc"><i>221</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>222</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<b class="fc"><i>223</i>&nbsp;        ucj.iniciarSessao(p.getEmail(),p.getPassword());</b>
+<i>224</i>&nbsp;
+<b class="fc"><i>225</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>226</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>227</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>228</i>&nbsp;
+<b class="fc"><i>229</i>&nbsp;        Cliente c1 = new Cliente(&quot;a&quot;,&quot;123&quot;,&quot;a&quot;,&quot;&quot;,&quot;&quot;,new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>230</i>&nbsp;        Cliente c2 = new Cliente(&quot;b&quot;,&quot;456&quot;,&quot;b&quot;,&quot;&quot;,&quot;&quot;,new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>231</i>&nbsp;        ucj.registarUtilizador(c1);</b>
+<b class="fc"><i>232</i>&nbsp;        ucj.registarUtilizador(c2);</b>
+<i>233</i>&nbsp;
+<b class="fc"><i>234</i>&nbsp;        Aluguer a1 = new Aluguer(c1.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>235</i>&nbsp;        Aluguer a2 = new Aluguer(c2.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<i>236</i>&nbsp;
+<b class="fc"><i>237</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>238</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<b class="fc"><i>239</i>&nbsp;        alugs.add(a1); //Aluguer referente ao cliente 1</b>
+<i>240</i>&nbsp;
+<b class="fc"><i>241</i>&nbsp;        List&lt;Aluguer&gt; res = ucj.determinarListaAlugCli(v.getMatricula(),c1.getEmail());</b>
+<i>242</i>&nbsp;
+<b class="fc"><i>243</i>&nbsp;        assertEquals(res,alugs);</b>
+<b class="nc"><i>244</i>&nbsp;    }</b>
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;    @Test
+<i>247</i>&nbsp;    public void altPrecoAluguer() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException {
+<b class="fc"><i>248</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>249</i>&nbsp;
+<b class="fc"><i>250</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>251</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<b class="fc"><i>252</i>&nbsp;        ucj.iniciarSessao(p.getEmail(),p.getPassword());</b>
+<i>253</i>&nbsp;
+<b class="fc"><i>254</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>255</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>256</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>257</i>&nbsp;
+<b class="fc"><i>258</i>&nbsp;        Aluguer a1 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>259</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<i>260</i>&nbsp;
+<b class="fc"><i>261</i>&nbsp;        ucj.altPrecoAluguer(13.25,a1);</b>
+<i>262</i>&nbsp;
+<b class="fc"><i>263</i>&nbsp;        assertTrue(a1.getAlteraPreco());</b>
+<b class="fc"><i>264</i>&nbsp;        assertEquals(13.25, a1.getCustoViagem(), 0.0);</b>
+<b class="fc"><i>265</i>&nbsp;    }</b>
+<i>266</i>&nbsp;
+<i>267</i>&nbsp;    @Test
+<i>268</i>&nbsp;    public void totalFactBDates() throws VeiculoJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoNaoESeuException {
+<b class="fc"><i>269</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>270</i>&nbsp;
+<b class="fc"><i>271</i>&nbsp;        Proprietario p = new Proprietario();</b>
+<b class="fc"><i>272</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<b class="fc"><i>273</i>&nbsp;        ucj.iniciarSessao(p.getEmail(),p.getPassword());</b>
+<i>274</i>&nbsp;
+<b class="fc"><i>275</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>276</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>277</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>278</i>&nbsp;
+<b class="fc"><i>279</i>&nbsp;        GregorianCalendar dInicio = new GregorianCalendar(2019,Calendar.JANUARY,1);</b>
+<b class="fc"><i>280</i>&nbsp;        GregorianCalendar dFim = new GregorianCalendar(2019,Calendar.DECEMBER, 31);</b>
+<i>281</i>&nbsp;
+<b class="fc"><i>282</i>&nbsp;        Aluguer a1 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(2019,Calendar.OCTOBER,1),new GregorianCalendar(2019,Calendar.OCTOBER,2),new Coordinate(1,1));</b>
+<b class="fc"><i>283</i>&nbsp;        Aluguer a2 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(2019,Calendar.MARCH,12),new GregorianCalendar(2019,Calendar.MARCH,12),new Coordinate(2,4));</b>
+<b class="fc"><i>284</i>&nbsp;        Aluguer a3 = new Aluguer(&quot;&quot;,v.getMatricula(),new GregorianCalendar(2018,Calendar.MARCH,2),new GregorianCalendar(2018,Calendar.MARCH,2),new Coordinate(3,4));</b>
+<b class="fc"><i>285</i>&nbsp;        a1.setCustoViagem(23);</b>
+<b class="fc"><i>286</i>&nbsp;        a2.setCustoViagem(42);</b>
+<b class="fc"><i>287</i>&nbsp;        a3.setCustoViagem(61); //Não esta entre as datas</b>
+<b class="fc"><i>288</i>&nbsp;        a1.setAceite(true);</b>
+<b class="fc"><i>289</i>&nbsp;        a2.setAceite(true);</b>
+<b class="fc"><i>290</i>&nbsp;        a3.setAceite(true);</b>
+<i>291</i>&nbsp;
+<b class="fc"><i>292</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>293</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<b class="fc"><i>294</i>&nbsp;        ucj.registaAluguer(a3);</b>
+<i>295</i>&nbsp;
+<b class="fc"><i>296</i>&nbsp;        double val = ucj.totalFactBDates(v.getMatricula(),dInicio,dFim);</b>
+<b class="fc"><i>297</i>&nbsp;        assertEquals(val, 65,0.0);</b>
+<i>298</i>&nbsp;
+<b class="fc"><i>299</i>&nbsp;    }</b>
+<i>300</i>&nbsp;
+<i>301</i>&nbsp;    @Test
+<i>302</i>&nbsp;    public void alugueresClassificarVeiculo() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoJaExisteException {
+<b class="fc"><i>303</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>304</i>&nbsp;
+<b class="fc"><i>305</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>306</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>307</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>308</i>&nbsp;
+<b class="fc"><i>309</i>&nbsp;        Proprietario p = new Proprietario(&quot;a&quot;,&quot;123&quot;,&quot;a&quot;,&quot;&quot;,&quot;&quot;,new GregorianCalendar());</b>
+<b class="fc"><i>310</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<i>311</i>&nbsp;
+<b class="fc"><i>312</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>313</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>314</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>315</i>&nbsp;
+<b class="fc"><i>316</i>&nbsp;        Aluguer a1 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>317</i>&nbsp;        Aluguer a2 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(2,4));</b>
+<b class="fc"><i>318</i>&nbsp;        Aluguer a3 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(3,4));</b>
+<b class="fc"><i>319</i>&nbsp;        Aluguer a4 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(3,4));</b>
+<b class="fc"><i>320</i>&nbsp;        a1.setEstadoClassificacao(3); //Ja foi avaliado</b>
+<b class="fc"><i>321</i>&nbsp;        a2.setEstadoClassificacao(1);</b>
+<b class="fc"><i>322</i>&nbsp;        a1.setRealizado(true);</b>
+<b class="fc"><i>323</i>&nbsp;        a2.setRealizado(true);</b>
+<b class="fc"><i>324</i>&nbsp;        a3.setRealizado(true);</b>
+<i>325</i>&nbsp;
+<b class="fc"><i>326</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>327</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<b class="fc"><i>328</i>&nbsp;        ucj.registaAluguer(a3);</b>
+<b class="fc"><i>329</i>&nbsp;        ucj.registaAluguer(a4); //este nao foi realizado</b>
+<i>330</i>&nbsp;
+<b class="fc"><i>331</i>&nbsp;        List&lt;Aluguer&gt; alugs = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>332</i>&nbsp;        alugs.add(a2);</b>
+<b class="fc"><i>333</i>&nbsp;        alugs.add(a3);</b>
+<b class="fc"><i>334</i>&nbsp;        List&lt;Aluguer&gt; res = ucj.alugueresClassificarVeiculo();</b>
+<i>335</i>&nbsp;
+<b class="fc"><i>336</i>&nbsp;        assertEquals(alugs,res);</b>
+<i>337</i>&nbsp;
+<b class="fc"><i>338</i>&nbsp;    }</b>
+<i>339</i>&nbsp;
+<i>340</i>&nbsp;    @Test
+<i>341</i>&nbsp;    public void classificarVeiculo() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoJaExisteException {
+<b class="fc"><i>342</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>343</i>&nbsp;
+<b class="fc"><i>344</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>345</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>346</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>347</i>&nbsp;
+<b class="fc"><i>348</i>&nbsp;        Proprietario p = new Proprietario(&quot;&quot;,&quot;123&quot;,&quot;a&quot;,&quot;&quot;,&quot;&quot;,new GregorianCalendar());</b>
+<b class="fc"><i>349</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<i>350</i>&nbsp;
+<b class="fc"><i>351</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>352</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>353</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>354</i>&nbsp;
+<b class="fc"><i>355</i>&nbsp;        Aluguer a1 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>356</i>&nbsp;        Aluguer a2 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(2,4));</b>
+<b class="fc"><i>357</i>&nbsp;        a1.setEstadoClassificacao(1);</b>
+<i>358</i>&nbsp;
+<b class="fc"><i>359</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>360</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<i>361</i>&nbsp;
+<b class="fc"><i>362</i>&nbsp;        ucj.classificarVeiculo(a1,80);</b>
+<b class="fc"><i>363</i>&nbsp;        ucj.classificarVeiculo(a2,90);</b>
+<i>364</i>&nbsp;
+<b class="fc"><i>365</i>&nbsp;        assertEquals(3,a1.getEstadoClassificacao());</b>
+<b class="fc"><i>366</i>&nbsp;        assertEquals(2,a2.getEstadoClassificacao());</b>
+<i>367</i>&nbsp;
+<b class="fc"><i>368</i>&nbsp;    }</b>
+<i>369</i>&nbsp;
+<i>370</i>&nbsp;
+<i>371</i>&nbsp;    @Test
+<i>372</i>&nbsp;    public void maisProximo() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, NaoExistemVeiculosDisponiveisException, VeiculoJaExisteException {
+<b class="fc"><i>373</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>374</i>&nbsp;
+<b class="fc"><i>375</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>376</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>377</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>378</i>&nbsp;
+<b class="fc"><i>379</i>&nbsp;        Veiculo v1 = new Veiculo(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(1,1),true);</b>
+<b class="fc"><i>380</i>&nbsp;        Veiculo v2 = new Veiculo(&quot;Ford&quot;,&quot;DF-12-09&quot;,&quot;&quot;,92,2.70,1.3,120,new Coordinate(1,1),false);</b>
+<b class="fc"><i>381</i>&nbsp;        Veiculo v3 = new Veiculo(&quot;Mercedes&quot;,&quot;LO-34-01&quot;,&quot;&quot;,110,3.70,1.9,120,new Coordinate(0,0),true);</b>
+<i>382</i>&nbsp;
+<i>383</i>&nbsp;
+<b class="fc"><i>384</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<b class="fc"><i>385</i>&nbsp;        ucj.registarVeiculo(v2);</b>
+<b class="fc"><i>386</i>&nbsp;        ucj.registarVeiculo(v3);</b>
+<i>387</i>&nbsp;
+<b class="fc"><i>388</i>&nbsp;        ParDatas pd = new ParDatas();</b>
+<i>389</i>&nbsp;
+<b class="fc"><i>390</i>&nbsp;        List&lt;Veiculo&gt; res = ucj.maisProximo(new Coordinate(2,2),pd,2);</b>
+<b class="fc"><i>391</i>&nbsp;        assertEquals(v3,res.get(0));</b>
+<i>392</i>&nbsp;
+<b class="nc"><i>393</i>&nbsp;    }</b>
+<i>394</i>&nbsp;
+<i>395</i>&nbsp;    @Test(expected = NaoExistemVeiculosDisponiveisException.class)
+<i>396</i>&nbsp;    public void maisBarato() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException {
+<b class="fc"><i>397</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>398</i>&nbsp;
+<b class="fc"><i>399</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>400</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>401</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>402</i>&nbsp;
+<b class="fc"><i>403</i>&nbsp;        Veiculo v1 = new Veiculo(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(1,1),false);</b>
+<b class="fc"><i>404</i>&nbsp;        Veiculo v2 = new Veiculo(&quot;Ford&quot;,&quot;DF-12-09&quot;,&quot;&quot;,92,2.70,1.3,120,new Coordinate(1,1),false);</b>
+<i>405</i>&nbsp;
+<b class="fc"><i>406</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<b class="fc"><i>407</i>&nbsp;        ucj.registarVeiculo(v2);</b>
+<i>408</i>&nbsp;
+<b class="fc"><i>409</i>&nbsp;        ParDatas pd = new ParDatas();</b>
+<b class="fc"><i>410</i>&nbsp;        ucj.maisBarato(new Coordinate(2,2),pd,1);</b>
+<i>411</i>&nbsp;
+<b class="nc"><i>412</i>&nbsp;    }</b>
+<i>413</i>&nbsp;
+<i>414</i>&nbsp;    @Test
+<i>415</i>&nbsp;    public void maisBaratoNoPerimetro() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException {
+<b class="fc"><i>416</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>417</i>&nbsp;
+<b class="fc"><i>418</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>419</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>420</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>421</i>&nbsp;
+<i>422</i>&nbsp;
+<b class="fc"><i>423</i>&nbsp;        Veiculo v1 = new Veiculo(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(1,1),true);</b>
+<b class="fc"><i>424</i>&nbsp;        Veiculo v2 = new Veiculo(&quot;Mercedes&quot;,&quot;LO-34-01&quot;,&quot;&quot;,110,3.70,1.9,120,new Coordinate(13.2,1),true);</b>
+<i>425</i>&nbsp;
+<i>426</i>&nbsp;
+<b class="fc"><i>427</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<b class="fc"><i>428</i>&nbsp;        ucj.registarVeiculo(v2);</b>
+<i>429</i>&nbsp;
+<b class="fc"><i>430</i>&nbsp;        ParDatas pd = new ParDatas();</b>
+<i>431</i>&nbsp;
+<b class="fc"><i>432</i>&nbsp;        List&lt;Veiculo&gt; res = ucj.maisBaratoNoPerimetro(new Coordinate(2,2),c.getPosicao(),pd,4,1);</b>
+<b class="fc"><i>433</i>&nbsp;        assertEquals(v1,res.get(0));</b>
+<b class="fc"><i>434</i>&nbsp;    }</b>
+<i>435</i>&nbsp;
+<i>436</i>&nbsp;    @Test(expected = VeiculoIndisponivelException.class)
+<i>437</i>&nbsp;    public void veiculoEspecifico() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException, VeiculoIndisponivelException, VeiculoNaoExisteException {
+<b class="fc"><i>438</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>439</i>&nbsp;
+<b class="fc"><i>440</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>441</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>442</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>443</i>&nbsp;
+<b class="fc"><i>444</i>&nbsp;        Veiculo v1 = new Veiculo(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(1,1),false);</b>
+<b class="fc"><i>445</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<i>446</i>&nbsp;
+<b class="fc"><i>447</i>&nbsp;        ucj.veiculoEspecifico(new Coordinate(1,1),new ParDatas(),v1.getMatricula());</b>
+<i>448</i>&nbsp;
+<b class="nc"><i>449</i>&nbsp;    }</b>
+<i>450</i>&nbsp;
+<i>451</i>&nbsp;    @Test
+<i>452</i>&nbsp;    public void determinadaAutonomia() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException {
+<b class="fc"><i>453</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>454</i>&nbsp;
+<b class="fc"><i>455</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>456</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>457</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>458</i>&nbsp;
+<i>459</i>&nbsp;        //2 disponiveis e com a mesma autonomia
+<b class="fc"><i>460</i>&nbsp;        Veiculo v1 = new Veiculo(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(1,1),true);</b>
+<b class="fc"><i>461</i>&nbsp;        Veiculo v2 = new Veiculo(&quot;Renault&quot;,&quot;XG-78-52&quot;,&quot;&quot;,80,3.25,1.22,90,new Coordinate(1,1),true);</b>
+<b class="fc"><i>462</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<b class="fc"><i>463</i>&nbsp;        ucj.registarVeiculo(v2);</b>
+<i>464</i>&nbsp;
+<b class="fc"><i>465</i>&nbsp;        List&lt;Veiculo&gt; res = ucj.determinadaAutonomia(new Coordinate(1,1), new ParDatas(), 70,110,1);</b>
+<i>466</i>&nbsp;
+<b class="fc"><i>467</i>&nbsp;        assertEquals(v1,res.get(0));</b>
+<i>468</i>&nbsp;
+<i>469</i>&nbsp;
+<b class="nc"><i>470</i>&nbsp;    }</b>
+<i>471</i>&nbsp;
+<i>472</i>&nbsp;    @Test
+<i>473</i>&nbsp;    public void getAlugueresCliente() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException, NaoEfetuouNenhumAluguerException {
+<b class="fc"><i>474</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>475</i>&nbsp;
+<b class="fc"><i>476</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>477</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>478</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>479</i>&nbsp;
+<b class="fc"><i>480</i>&nbsp;        Proprietario p = new Proprietario(&quot;&quot;,&quot;123&quot;,&quot;a&quot;,&quot;&quot;,&quot;&quot;,new GregorianCalendar());</b>
+<b class="fc"><i>481</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<i>482</i>&nbsp;
+<b class="fc"><i>483</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>484</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>485</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>486</i>&nbsp;
+<b class="fc"><i>487</i>&nbsp;        Aluguer a1 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(1,1));</b>
+<b class="fc"><i>488</i>&nbsp;        Aluguer a2 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(2,4));</b>
+<b class="fc"><i>489</i>&nbsp;        Aluguer a3 = new Aluguer(&quot;3&quot;,v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(3,4));</b>
+<b class="fc"><i>490</i>&nbsp;        Aluguer a4 = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),new Coordinate(3,4));</b>
+<i>491</i>&nbsp;
+<b class="fc"><i>492</i>&nbsp;        ucj.registaAluguer(a1);</b>
+<b class="fc"><i>493</i>&nbsp;        ucj.registaAluguer(a2);</b>
+<b class="fc"><i>494</i>&nbsp;        ucj.registaAluguer(a3);</b>
+<b class="fc"><i>495</i>&nbsp;        ucj.registaAluguer(a4);</b>
+<i>496</i>&nbsp;
+<b class="fc"><i>497</i>&nbsp;        List&lt;Aluguer&gt; res = ucj.getAlugueresCliente(c.getEmail());</b>
+<i>498</i>&nbsp;
+<b class="fc"><i>499</i>&nbsp;        assertFalse(res.contains(a3));</b>
+<b class="fc"><i>500</i>&nbsp;        assertEquals(3,res.size());</b>
+<i>501</i>&nbsp;
+<b class="fc"><i>502</i>&nbsp;    }</b>
+<i>503</i>&nbsp;
+<i>504</i>&nbsp;    @Test
+<i>505</i>&nbsp;    public void maisPertoJa() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException {
+<b class="fc"><i>506</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>507</i>&nbsp;
+<b class="fc"><i>508</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>509</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>510</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>511</i>&nbsp;
+<b class="fc"><i>512</i>&nbsp;        CarroGasolina v1 = new CarroGasolina(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(2,1),true);</b>
+<b class="fc"><i>513</i>&nbsp;        CarroGasolina v2 = new CarroGasolina(&quot;Ford&quot;,&quot;DF-12-09&quot;,&quot;&quot;,92,2.70,1.3,120,new Coordinate(1,1),true);</b>
+<b class="fc"><i>514</i>&nbsp;        CarroEletrico v3 = new CarroEletrico(&quot;Mercedes&quot;,&quot;LO-34-01&quot;,&quot;&quot;,110,3.70,1.9,120,new Coordinate(1,1),true);</b>
+<i>515</i>&nbsp;
+<i>516</i>&nbsp;
+<b class="fc"><i>517</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<b class="fc"><i>518</i>&nbsp;        ucj.registarVeiculo(v2);</b>
+<b class="fc"><i>519</i>&nbsp;        ucj.registarVeiculo(v3);</b>
+<i>520</i>&nbsp;
+<b class="fc"><i>521</i>&nbsp;        Veiculo res = ucj.maisPertoJa(new Coordinate(4,4), new ParDatas(), &quot;CarroGasolina&quot;);</b>
+<b class="fc"><i>522</i>&nbsp;        assertEquals(v2,res);</b>
+<b class="fc"><i>523</i>&nbsp;    }</b>
+<i>524</i>&nbsp;
+<i>525</i>&nbsp;    @Test
+<i>526</i>&nbsp;    public void maisBaratoJa() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException {
+<b class="fc"><i>527</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>528</i>&nbsp;
+<b class="fc"><i>529</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>530</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>531</i>&nbsp;        ucj.iniciarSessao(c.getEmail(),c.getPassword());</b>
+<i>532</i>&nbsp;
+<i>533</i>&nbsp;        //Eletrico esta mais perto, mas quer um a gasolina
+<b class="fc"><i>534</i>&nbsp;        CarroGasolina v1 = new CarroGasolina(&quot;Ford&quot;,&quot;AZ-12-12&quot;,&quot;&quot;,90,3.45,1.3,100,new Coordinate(2,1),true);</b>
+<b class="fc"><i>535</i>&nbsp;        CarroEletrico v2 = new CarroEletrico(&quot;Ford&quot;,&quot;DF-12-09&quot;,&quot;&quot;,92,2.70,1.3,120,new Coordinate(1,1),false);</b>
+<b class="fc"><i>536</i>&nbsp;        CarroEletrico v3 = new CarroEletrico(&quot;Mercedes&quot;,&quot;LO-34-01&quot;,&quot;&quot;,110,3.70,1.9,120,new Coordinate(1,1),true);</b>
+<i>537</i>&nbsp;
+<i>538</i>&nbsp;
+<b class="fc"><i>539</i>&nbsp;        ucj.registarVeiculo(v1);</b>
+<b class="fc"><i>540</i>&nbsp;        ucj.registarVeiculo(v2);</b>
+<b class="fc"><i>541</i>&nbsp;        ucj.registarVeiculo(v3);</b>
+<i>542</i>&nbsp;
+<b class="fc"><i>543</i>&nbsp;        Veiculo res = ucj.maisBaratoJa(new Coordinate(4,4), new ParDatas(), &quot;CarroEletrico&quot;);</b>
+<b class="fc"><i>544</i>&nbsp;        assertEquals(v3,res);</b>
+<b class="fc"><i>545</i>&nbsp;    }</b>
+<i>546</i>&nbsp;
+<i>547</i>&nbsp;    @Test
+<i>548</i>&nbsp;    public void alterarPosCliente() throws UtilizadorJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, VeiculoJaExisteException {
+<b class="fc"><i>549</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>550</i>&nbsp;
+<b class="fc"><i>551</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>552</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<i>553</i>&nbsp;
+<b class="fc"><i>554</i>&nbsp;        Proprietario p = new Proprietario(&quot;&quot;,&quot;123&quot;,&quot;a&quot;,&quot;&quot;,&quot;&quot;,new GregorianCalendar());</b>
+<b class="fc"><i>555</i>&nbsp;        ucj.registarUtilizador(p);</b>
+<i>556</i>&nbsp;
+<b class="fc"><i>557</i>&nbsp;        Veiculo v = new Veiculo();</b>
+<b class="fc"><i>558</i>&nbsp;        v.setNIF(p.getNIF());</b>
+<b class="fc"><i>559</i>&nbsp;        ucj.registarVeiculo(v);</b>
+<i>560</i>&nbsp;
+<b class="fc"><i>561</i>&nbsp;        Coordinate destino = new Coordinate(1,1);</b>
+<i>562</i>&nbsp;
+<b class="fc"><i>563</i>&nbsp;        Aluguer a = new Aluguer(c.getEmail(),v.getMatricula(),new GregorianCalendar(),new GregorianCalendar(),destino);</b>
+<b class="fc"><i>564</i>&nbsp;        ucj.registaAluguer(a);</b>
+<i>565</i>&nbsp;
+<b class="fc"><i>566</i>&nbsp;        ucj.alterarPosCliente(c.getEmail(),destino);</b>
+<b class="fc"><i>567</i>&nbsp;        Cliente res = (Cliente) ucj.getUtilizador(c.getEmail());</b>
+<i>568</i>&nbsp;
+<b class="fc"><i>569</i>&nbsp;        assertEquals(destino,res.getPosicao());</b>
+<b class="fc"><i>570</i>&nbsp;        assertEquals(1,res.getNAlugueres());</b>
+<b class="fc"><i>571</i>&nbsp;    }</b>
+<i>572</i>&nbsp;
+<i>573</i>&nbsp;    @Test
+<i>574</i>&nbsp;    public void classificarClienteJa() throws UtilizadorJaExisteException, UtilizadorNaoExisteException {
+<b class="fc"><i>575</i>&nbsp;        UmCarroJa ucj = new UmCarroJa();</b>
+<i>576</i>&nbsp;
+<b class="fc"><i>577</i>&nbsp;        Cliente c = new Cliente();</b>
+<b class="fc"><i>578</i>&nbsp;        c.setClassificacao(95);</b>
+<b class="fc"><i>579</i>&nbsp;        c.setNAlugueres(3);</b>
+<b class="fc"><i>580</i>&nbsp;        ucj.registarUtilizador(c);</b>
+<b class="fc"><i>581</i>&nbsp;        ucj.classificarClienteJa(c.getEmail(),70);</b>
+<i>582</i>&nbsp;
+<b class="fc"><i>583</i>&nbsp;        Cliente res = (Cliente) ucj.getUtilizador(c.getEmail());</b>
+<b class="fc"><i>584</i>&nbsp;        assertEquals(55,res.getClassificacao());</b>
+<i>585</i>&nbsp;
+<b class="fc"><i>586</i>&nbsp;    }</b>
+<i>587</i>&nbsp;
+<i>588</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 21:46</div>
+</div>
+</body>
+</html>

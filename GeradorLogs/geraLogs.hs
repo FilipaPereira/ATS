@@ -7,13 +7,21 @@ import Info
 -- | Função Main
 main :: IO ()
 main = do 
-       users <- generate $ execGerador (genUsers 2500)
+       putStrLn ("Insira número de utilizadores: ")
+       numUsers <- getLine
+       putStrLn ("Insira número de veículos: ")
+       numCarros <- getLine
+       putStrLn ("Insira número de alugueres: ")
+       numAlugs <- getLine
+       putStrLn ("Insira número de classificações: ")
+       numClass <- getLine
+       users <- generate $ execGerador (genUsers (read numUsers :: Int))
        let nifsProp = getNifsProp users
        let nifsClientes = getNifsClientes users
-       carros <- generate $ execGerador (genCarros 3000 nifsProp)
-       alugueres <- generate $ execGerador (genAlugueres 1750 nifsClientes)
+       carros <- generate $ execGerador (genCarros (read numCarros :: Int) nifsProp)
+       alugueres <- generate $ execGerador (genAlugueres (read numAlugs :: Int) nifsClientes)
        let mats = getMatriculas carros
-       classifs <- generate $ execGerador (genClassificacoes 250 nifsClientes mats)
+       classifs <- generate $ execGerador (genClassificacoes (read numClass :: Int) nifsClientes mats)
        writeFile "logs.txt" $ unlines (users++carros++alugueres++classifs)
 
 -- | Estado do Gerador
@@ -85,7 +93,7 @@ genNome = do
 
 genEmail :: String -> Gen String
 genEmail nif = do
-               a <- elements["@gmail.com","@hotmail.com","@live.pt"]
+               let a = "@gmail.com"
                return (nif++a)
 
 genMorada :: Gen String

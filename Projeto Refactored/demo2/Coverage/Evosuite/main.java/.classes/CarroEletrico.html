@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CarroEletrico</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">main.java</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CarroEletrico (main.java)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CarroEletrico</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/**
+<i>2</i>&nbsp; * Classe que extende a classe veículo e que
+<i>3</i>&nbsp; * representa um carro elétrico.
+<i>4</i>&nbsp; * 
+<i>5</i>&nbsp; */
+<i>6</i>&nbsp;package main.java;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;public class CarroEletrico extends Veiculo {
+<i>9</i>&nbsp;    
+<i>10</i>&nbsp;    /**
+<i>11</i>&nbsp;     * Construtor por omissão.
+<i>12</i>&nbsp;     * É criada uma instância da classe CarroEletrico.
+<i>13</i>&nbsp;     */
+<i>14</i>&nbsp;    public CarroEletrico(){
+<b class="fc"><i>15</i>&nbsp;        super();</b>
+<b class="fc"><i>16</i>&nbsp;    }</b>
+<i>17</i>&nbsp;    
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Construtor por parâmetro.
+<i>20</i>&nbsp;     * @param marca       Marca do carro elétrico.
+<i>21</i>&nbsp;     * @param matricula   Matrícula do carro elétrico.
+<i>22</i>&nbsp;     * @param nif         NIF do proprietário do carro elétrico.
+<i>23</i>&nbsp;     * @param velocidade  Velocidade média por Km do carro elétrico.
+<i>24</i>&nbsp;     * @param preco       Preço base por cada Km percorrido do carro elétrico.
+<i>25</i>&nbsp;     * @param consumo     Consumo por Km percorrido do carro elétrico. 
+<i>26</i>&nbsp;     * @param autonomia   Autonomia em Km do carro elétrico.
+<i>27</i>&nbsp;     * @param cords       Coordenadas em que o carro elétrico se encontra.
+<i>28</i>&nbsp;     * @param disponivel  True se o carro elétrico estiver disponível, false caso contrário.
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    public CarroEletrico(String marca, String matricula, String nif, int velocidade, double preco, double consumo, 
+<i>31</i>&nbsp;                         int autonomia, Coordinate cords, boolean disponivel){
+<b class="fc"><i>32</i>&nbsp;        super(marca, matricula, nif, velocidade, preco, consumo, autonomia, cords, disponivel);</b>
+<b class="fc"><i>33</i>&nbsp;    }</b>
+<i>34</i>&nbsp;    
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Construtor por cópia.
+<i>37</i>&nbsp;     * @param ce Um outro carro elétrico.
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public CarroEletrico(CarroEletrico ce){
+<b class="fc"><i>40</i>&nbsp;        super(ce);       </b>
+<b class="fc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;        
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Compara a igualdade com outro objeto.
+<i>45</i>&nbsp;     * @param obj O objeto a comparar.
+<i>46</i>&nbsp;     * @return true se forem iguais, false caso contrário.
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    @Override
+<i>49</i>&nbsp;    public boolean equals(Object obj) {
+<b class="fc"><i>50</i>&nbsp;        if(obj==this) return true;</b>
+<b class="fc"><i>51</i>&nbsp;        if(obj==null || obj.getClass()!=this.getClass()) return false;</b>
+<b class="fc"><i>52</i>&nbsp;        CarroEletrico ce = (CarroEletrico) obj;</b>
+<b class="fc"><i>53</i>&nbsp;        return(super.equals(ce));</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;    
+<i>56</i>&nbsp;    /** 
+<i>57</i>&nbsp;     * Devolve uma representação do objeto em formato textual.
+<i>58</i>&nbsp;     * @return String Representa o objeto em formato textual.
+<i>59</i>&nbsp;     */
+<i>60</i>&nbsp;    @Override
+<i>61</i>&nbsp;    public String toString() {
+<b class="fc"><i>62</i>&nbsp;        StringBuilder str = new StringBuilder();</b>
+<b class="fc"><i>63</i>&nbsp;        str.append(&quot;***** Carro Elétrico *****\n&quot;);</b>
+<b class="fc"><i>64</i>&nbsp;        str.append(super.toString());</b>
+<b class="fc"><i>65</i>&nbsp;        return str.toString();</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;    
+<i>68</i>&nbsp;    /**
+<i>69</i>&nbsp;     * Retorna uma cópia da instância.
+<i>70</i>&nbsp;     * @return CarroEletrico Um novo carro elétrico, que é cópia do this.
+<i>71</i>&nbsp;     */
+<i>72</i>&nbsp;    @Override
+<i>73</i>&nbsp;    public CarroEletrico clone(){
+<b class="fc"><i>74</i>&nbsp;        return new CarroEletrico(this);</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    @Override
+<i>78</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>79</i>&nbsp;        return super.hashCode();</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 19:02</div>
+</div>
+</body>
+</html>

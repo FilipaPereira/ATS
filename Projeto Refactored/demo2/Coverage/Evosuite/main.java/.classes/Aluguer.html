@@ -1,0 +1,393 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Aluguer</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">main.java</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Aluguer (main.java)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Aluguer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (30/ 30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (99/ 99)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;    /**
+<i>2</i>&nbsp;     * Classe que representa um aluguer na aplicação.
+<i>3</i>&nbsp;     * 
+<i>4</i>&nbsp;     */
+<i>5</i>&nbsp;package main.java;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.io.Serializable;
+<i>9</i>&nbsp;import java.util.GregorianCalendar;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class Aluguer implements Serializable {
+<i>12</i>&nbsp;    
+<i>13</i>&nbsp;    /* Email do cliente que requisitou o aluguer */
+<i>14</i>&nbsp;    private String mail;
+<i>15</i>&nbsp;    /* Matrícula do veículo alugado */
+<i>16</i>&nbsp;    private String matricula;
+<i>17</i>&nbsp;    /* Data de início do aluguer */
+<i>18</i>&nbsp;    private GregorianCalendar dataInicio;
+<i>19</i>&nbsp;    /* Data de fim do aluguer */
+<i>20</i>&nbsp;    private GregorianCalendar dataFim;
+<i>21</i>&nbsp;    /* Custo da viagem efetuada */
+<i>22</i>&nbsp;    private double custoViagem;
+<i>23</i>&nbsp;    /* Tempo que o cliente demora a chegar a pé ao veiculo (em minutos) */
+<i>24</i>&nbsp;    private int tempoAteVeiculo;
+<i>25</i>&nbsp;    /* Tempo total da viagem em minutos */
+<i>26</i>&nbsp;    private int tempoViagem;
+<i>27</i>&nbsp;    /* Destino do Cliente */
+<i>28</i>&nbsp;    private Coordinate destino;
+<i>29</i>&nbsp;    /* Número de Kms desde a origem até ao destino */
+<i>30</i>&nbsp;    private double distancia;
+<i>31</i>&nbsp;    /* Aluguer foi aceite pelo proprietário ou não */
+<i>32</i>&nbsp;    private boolean aceite;
+<i>33</i>&nbsp;    /* Aluguer está em lista de espera ou não */
+<i>34</i>&nbsp;    private boolean listaEspera;
+<i>35</i>&nbsp;    /* Aluguer já foi realizado ou não */
+<i>36</i>&nbsp;    private  boolean realizado;
+<i>37</i>&nbsp;    /* Aluguer foi alterado de preço ou não */
+<i>38</i>&nbsp;    private boolean altPrice;
+<i>39</i>&nbsp;    /* Inteiro que representa o estado da classificação, 0 - não foi efetuada nenhuma classificação,
+<i>40</i>&nbsp;       1 - classificação dada apenas ao cliente, 2 - classificação dada apenas ao veículo,
+<i>41</i>&nbsp;       3 - classificação foi dada a ambos */
+<i>42</i>&nbsp;    private int estadoClassif;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * Construtor por omissão.
+<i>46</i>&nbsp;     * É criada uma instância da classe Aluguer.
+<i>47</i>&nbsp;     */
+<b class="fc"><i>48</i>&nbsp;    public Aluguer(){</b>
+<b class="fc"><i>49</i>&nbsp;        this.mail = &quot;&quot;;</b>
+<b class="fc"><i>50</i>&nbsp;        this.matricula = &quot;&quot;;</b>
+<b class="fc"><i>51</i>&nbsp;        this.dataInicio = new GregorianCalendar();</b>
+<b class="fc"><i>52</i>&nbsp;        this.dataFim = new GregorianCalendar();</b>
+<b class="fc"><i>53</i>&nbsp;        this.custoViagem = 0.0;</b>
+<b class="fc"><i>54</i>&nbsp;        this.tempoAteVeiculo = 0;</b>
+<b class="fc"><i>55</i>&nbsp;        this.tempoViagem = 0;</b>
+<b class="fc"><i>56</i>&nbsp;        this.destino = new Coordinate(0.0, 0.0);</b>
+<b class="fc"><i>57</i>&nbsp;        this.distancia = 0.0;</b>
+<b class="fc"><i>58</i>&nbsp;        this.aceite = false;</b>
+<b class="fc"><i>59</i>&nbsp;        this.listaEspera = false;</b>
+<b class="fc"><i>60</i>&nbsp;        this.realizado = false;</b>
+<b class="fc"><i>61</i>&nbsp;        this.altPrice = false;</b>
+<b class="fc"><i>62</i>&nbsp;        this.estadoClassif = 0;</b>
+<b class="fc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;    
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * Construtor por parâmetro
+<i>67</i>&nbsp;     * @param mail           Mail do cliente que requisitou o aluguer.
+<i>68</i>&nbsp;     * @param matricula      Matrícula do veículo a alugar.
+<i>69</i>&nbsp;     * @param inicio         Data de início do aluguer.
+<i>70</i>&nbsp;     * @param fim            Data de fim do aluguer.
+<i>71</i>&nbsp;     * @param dest           Destino do Cliente.
+<i>72</i>&nbsp;     */
+<b class="fc"><i>73</i>&nbsp;    public Aluguer(String mail, String matricula, GregorianCalendar inicio, GregorianCalendar fim,Coordinate dest){</b>
+<b class="fc"><i>74</i>&nbsp;        this.mail = mail;</b>
+<b class="fc"><i>75</i>&nbsp;        this.matricula = matricula;</b>
+<b class="fc"><i>76</i>&nbsp;        this.dataInicio = inicio;</b>
+<b class="fc"><i>77</i>&nbsp;        this.dataFim = fim;</b>
+<b class="fc"><i>78</i>&nbsp;        this.custoViagem = 0.0;</b>
+<b class="fc"><i>79</i>&nbsp;        this.tempoAteVeiculo = 0;</b>
+<b class="fc"><i>80</i>&nbsp;        this.tempoViagem = 0;</b>
+<b class="fc"><i>81</i>&nbsp;        this.destino = dest;</b>
+<b class="fc"><i>82</i>&nbsp;        this.distancia = 0;</b>
+<b class="fc"><i>83</i>&nbsp;        this.aceite = false;</b>
+<b class="fc"><i>84</i>&nbsp;        this.listaEspera = true;</b>
+<b class="fc"><i>85</i>&nbsp;        this.realizado = false;</b>
+<b class="fc"><i>86</i>&nbsp;        this.altPrice = false;</b>
+<b class="fc"><i>87</i>&nbsp;        this.estadoClassif = 0;</b>
+<b class="fc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;    
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * Construtor por cópia.
+<i>92</i>&nbsp;     * @param outroAluguer Um outro aluguer.
+<i>93</i>&nbsp;     */
+<b class="fc"><i>94</i>&nbsp;    public Aluguer(Aluguer outroAluguer){</b>
+<b class="fc"><i>95</i>&nbsp;        this.mail = outroAluguer.getEmail();</b>
+<b class="fc"><i>96</i>&nbsp;        this.matricula = outroAluguer.getMatricula();</b>
+<b class="fc"><i>97</i>&nbsp;        this.dataInicio = outroAluguer.getDataInicio();</b>
+<b class="fc"><i>98</i>&nbsp;        this.dataFim = outroAluguer.getDataFim();</b>
+<b class="fc"><i>99</i>&nbsp;        this.custoViagem = outroAluguer.getCustoViagem();</b>
+<b class="fc"><i>100</i>&nbsp;        this.tempoAteVeiculo = outroAluguer.getTempoAteVeiculo();</b>
+<b class="fc"><i>101</i>&nbsp;        this.tempoViagem = outroAluguer.getTempoViagem();</b>
+<b class="fc"><i>102</i>&nbsp;        this.destino = outroAluguer.getDestino();</b>
+<b class="fc"><i>103</i>&nbsp;        this.distancia = outroAluguer.getDistancia();</b>
+<b class="fc"><i>104</i>&nbsp;        this.aceite = outroAluguer.getAceite();</b>
+<b class="fc"><i>105</i>&nbsp;        this.listaEspera = outroAluguer.getListaEspera();</b>
+<b class="fc"><i>106</i>&nbsp;        this.realizado = outroAluguer.getRealizado();</b>
+<b class="fc"><i>107</i>&nbsp;        this.altPrice = outroAluguer.getAlteraPreco();</b>
+<b class="fc"><i>108</i>&nbsp;        this.estadoClassif = outroAluguer.getEstadoClassificacao();</b>
+<b class="fc"><i>109</i>&nbsp;    }</b>
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;    /*****************************************************************************
+<i>112</i>&nbsp;     *                             BEGIN GETTERS                                 *
+<i>113</i>&nbsp;     *****************************************************************************/
+<i>114</i>&nbsp;    
+<i>115</i>&nbsp;    /**
+<i>116</i>&nbsp;     * Devolve o mail do cliente.
+<i>117</i>&nbsp;     * @return String Representa o email do cliente.
+<i>118</i>&nbsp;     */
+<b class="fc"><i>119</i>&nbsp;    public String getEmail(){return this.mail;}</b>
+<i>120</i>&nbsp;    
+<i>121</i>&nbsp;    /**
+<i>122</i>&nbsp;     * Devolve a matrícula do veículo alugado pelo cliente.
+<i>123</i>&nbsp;     * @return String Representa a matrícula do veículo.
+<i>124</i>&nbsp;     */
+<b class="fc"><i>125</i>&nbsp;    public String getMatricula(){return this.matricula;}</b>
+<i>126</i>&nbsp;    
+<i>127</i>&nbsp;    /**
+<i>128</i>&nbsp;     * Devolve a data de início do aluguer.
+<i>129</i>&nbsp;     * @return GregorianCalendar Representa a data de início do aluguer.
+<i>130</i>&nbsp;     */
+<b class="fc"><i>131</i>&nbsp;    public GregorianCalendar getDataInicio(){return this.dataInicio;}</b>
+<i>132</i>&nbsp;        
+<i>133</i>&nbsp;    /**
+<i>134</i>&nbsp;     * Devolve a data de fim do aluguer.
+<i>135</i>&nbsp;     * @return GregorianCalendar Representa a data de fim do aluguer.
+<i>136</i>&nbsp;     */
+<b class="fc"><i>137</i>&nbsp;    public GregorianCalendar getDataFim(){return this.dataFim;}</b>
+<i>138</i>&nbsp;    
+<i>139</i>&nbsp;    /**
+<i>140</i>&nbsp;     * Devolve o custo total da viagem.
+<i>141</i>&nbsp;     * @return double Representa o custo total da viagem.
+<i>142</i>&nbsp;     */
+<b class="fc"><i>143</i>&nbsp;    public double getCustoViagem(){return this.custoViagem;}</b>
+<i>144</i>&nbsp;    
+<i>145</i>&nbsp;    /**
+<i>146</i>&nbsp;     * Devolve o tempo (em segundos) que o cliente demora a pé até ao veículo.
+<i>147</i>&nbsp;     * @return int Representa o tempo a pé até ao veículo (em segundos).
+<i>148</i>&nbsp;     */
+<b class="fc"><i>149</i>&nbsp;    public int getTempoAteVeiculo(){return this.tempoAteVeiculo;}</b>
+<i>150</i>&nbsp;    
+<i>151</i>&nbsp;    /**
+<i>152</i>&nbsp;     * Devolve o tempo (em segundos) total da viagem.
+<i>153</i>&nbsp;     * @return int Representa o tempo total da viagem.
+<i>154</i>&nbsp;     */
+<b class="fc"><i>155</i>&nbsp;    public int getTempoViagem(){return this.tempoViagem;}</b>
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;    /**
+<i>158</i>&nbsp;     * Devolve o destino do cliente.
+<i>159</i>&nbsp;     * @return Coordinate Representa as coordenadas de destino do cliente.
+<i>160</i>&nbsp;     */
+<b class="fc"><i>161</i>&nbsp;    public Coordinate getDestino(){return this.destino;}</b>
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    /**
+<i>164</i>&nbsp;     * Devolve a distância (em Km) da origem (posição do cliente) até ao destino.
+<i>165</i>&nbsp;     * @return double Representa a distância (em Km) da origem (posição do cliente) até ao destino.
+<i>166</i>&nbsp;     */
+<b class="fc"><i>167</i>&nbsp;    public double getDistancia(){return this.distancia;}</b>
+<i>168</i>&nbsp;    
+<i>169</i>&nbsp;    /**
+<i>170</i>&nbsp;     * Devolve true ou false, caso o aluguer tenha sido aceite pelo proprietário do veículo ou não, respetivamente.
+<i>171</i>&nbsp;     * @return boolean Representa se a viagem foi aceite ou recusada pelo proprietário.
+<i>172</i>&nbsp;     */
+<b class="fc"><i>173</i>&nbsp;    public boolean getAceite(){return this.aceite;}</b>
+<i>174</i>&nbsp;    
+<i>175</i>&nbsp;    /**
+<i>176</i>&nbsp;     * Devolve true ou false, caso o aluguer esteja em lista de espera, ou não.
+<i>177</i>&nbsp;     * @return boolean Representa se o aluguer se encontra à espera de ser aceite ou não.
+<i>178</i>&nbsp;     */
+<b class="fc"><i>179</i>&nbsp;    public boolean getListaEspera(){return this.listaEspera;}</b>
+<i>180</i>&nbsp;
+<i>181</i>&nbsp;    /**
+<i>182</i>&nbsp;     * Devolve true ou false, caso o aluguer tenha sido realizado, ou não, respetivamente.
+<i>183</i>&nbsp;     * @return boolean Representa se o aluguer foi realizado ou não.
+<i>184</i>&nbsp;     */
+<b class="fc"><i>185</i>&nbsp;    public boolean getRealizado(){return this.realizado;}</b>
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;    /**
+<i>188</i>&nbsp;     * Devolve true ou false, caso o preço do aluguer tenha sido alterado pelo proprietário.
+<i>189</i>&nbsp;     * @return boolean Representa se foi alterado o preço do aluguer ou não.
+<i>190</i>&nbsp;     */
+<b class="fc"><i>191</i>&nbsp;    public boolean getAlteraPreco(){return this.altPrice;}</b>
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;    /**
+<i>194</i>&nbsp;     * Devolve um inteiro que representa o estado atual da classificação do aluguer.
+<i>195</i>&nbsp;     * @return int Representa se o estado da classificação do aluguer,
+<i>196</i>&nbsp;     *             0 - não foi efetuada nenhuma classificação,
+<i>197</i>&nbsp;     *             1 - classificação dada apenas ao cliente,
+<i>198</i>&nbsp;     *             2 - classificação dada apenas ao veículo,
+<i>199</i>&nbsp;     *             3 - classificação foi dada a ambos.
+<i>200</i>&nbsp;     */
+<b class="fc"><i>201</i>&nbsp;    public int getEstadoClassificacao(){return this.estadoClassif;}</b>
+<i>202</i>&nbsp;    
+<i>203</i>&nbsp;    /*****************************************************************************
+<i>204</i>&nbsp;     *                              END GETTERS                                  *
+<i>205</i>&nbsp;     *****************************************************************************/
+<i>206</i>&nbsp;    
+<i>207</i>&nbsp;    /*****************************************************************************
+<i>208</i>&nbsp;     *                             BEGIN SETTERS                                 *
+<i>209</i>&nbsp;     *****************************************************************************/
+<i>210</i>&nbsp;    
+<i>211</i>&nbsp;    /**
+<i>212</i>&nbsp;     * Altera o custo total da viagem.
+<i>213</i>&nbsp;     */
+<b class="fc"><i>214</i>&nbsp;    public void setCustoViagem(double newCost){this.custoViagem = newCost;}</b>
+<i>215</i>&nbsp;    
+<i>216</i>&nbsp;    /**
+<i>217</i>&nbsp;     * Altera o valor do campo aceite.
+<i>218</i>&nbsp;     */
+<b class="fc"><i>219</i>&nbsp;    public void setAceite(boolean aceite){this.aceite = aceite;}</b>
+<i>220</i>&nbsp;    
+<i>221</i>&nbsp;    /**
+<i>222</i>&nbsp;     * Altera o valor do campo listaEspera.
+<i>223</i>&nbsp;     */
+<b class="fc"><i>224</i>&nbsp;    public void setListaEspera(boolean listaEspera){this.listaEspera = listaEspera;}</b>
+<i>225</i>&nbsp;
+<i>226</i>&nbsp;    /**
+<i>227</i>&nbsp;     * Altera o valor do campo realizado.
+<i>228</i>&nbsp;     */
+<b class="fc"><i>229</i>&nbsp;    public void setRealizado(boolean done){this.realizado = done;}</b>
+<i>230</i>&nbsp;    
+<i>231</i>&nbsp;    /**
+<i>232</i>&nbsp;     * Altera o valor do campo listaEspera.
+<i>233</i>&nbsp;     */
+<b class="fc"><i>234</i>&nbsp;    public void setAlteraPreco(boolean altPrc){this.altPrice = altPrc;}</b>
+<i>235</i>&nbsp;
+<b class="fc"><i>236</i>&nbsp;    public void setTempoAteVeiculo(int tempoAteVeiculo){this.tempoAteVeiculo = tempoAteVeiculo;}</b>
+<i>237</i>&nbsp;
+<i>238</i>&nbsp;    public void setTempoViagem(int tempoViagem) {
+<b class="fc"><i>239</i>&nbsp;        this.tempoViagem = tempoViagem;</b>
+<b class="fc"><i>240</i>&nbsp;    }</b>
+<i>241</i>&nbsp;    public void setDistancia(double distancia) {
+<b class="fc"><i>242</i>&nbsp;        this.distancia = distancia;</b>
+<b class="fc"><i>243</i>&nbsp;    }</b>
+<i>244</i>&nbsp;
+<i>245</i>&nbsp;    /**
+<i>246</i>&nbsp;     * Altera o valor do campo estado de classificação.
+<i>247</i>&nbsp;     */
+<b class="fc"><i>248</i>&nbsp;    public void setEstadoClassificacao(int estado){this.estadoClassif = estado;}</b>
+<i>249</i>&nbsp;
+<i>250</i>&nbsp;    /*****************************************************************************
+<i>251</i>&nbsp;     *                              END SETTERS                                  *
+<i>252</i>&nbsp;     *****************************************************************************/
+<i>253</i>&nbsp;        
+<i>254</i>&nbsp;    /**
+<i>255</i>&nbsp;     * Compara a igualdade com outro objeto.
+<i>256</i>&nbsp;     * @param obj O objeto a comparar.
+<i>257</i>&nbsp;     * @return true se forem iguais, false caso contrário.
+<i>258</i>&nbsp;     */
+<i>259</i>&nbsp;    @Override
+<i>260</i>&nbsp;    public boolean equals(Object obj) {
+<b class="fc"><i>261</i>&nbsp;        if(obj==this) return true;</b>
+<b class="fc"><i>262</i>&nbsp;        if(obj==null || obj.getClass()!=this.getClass()) return false;</b>
+<b class="fc"><i>263</i>&nbsp;        Aluguer alug = (Aluguer) obj;</b>
+<b class="fc"><i>264</i>&nbsp;        return  this.mail.equals(alug.getEmail()) &amp;&amp; this.matricula.equals(alug.getMatricula()) &amp;&amp;</b>
+<b class="fc"><i>265</i>&nbsp;                this.dataInicio.equals(alug.getDataInicio()) &amp;&amp; this.dataFim.equals(alug.getDataFim()) &amp;&amp;</b>
+<b class="fc"><i>266</i>&nbsp;                this.custoViagem == alug.getCustoViagem() &amp;&amp; this.tempoAteVeiculo == alug.getTempoAteVeiculo() &amp;&amp;</b>
+<b class="fc"><i>267</i>&nbsp;                this.tempoViagem == alug.getTempoViagem() &amp;&amp; this.aceite == alug.getAceite() &amp;&amp;</b>
+<b class="fc"><i>268</i>&nbsp;                this.listaEspera == alug.getListaEspera() &amp;&amp; this.realizado == alug.getRealizado() &amp;&amp;</b>
+<b class="fc"><i>269</i>&nbsp;                this.altPrice == alug.getAlteraPreco() &amp;&amp; this.estadoClassif == alug.getEstadoClassificacao();</b>
+<i>270</i>&nbsp;    }
+<i>271</i>&nbsp;    
+<i>272</i>&nbsp;    /** 
+<i>273</i>&nbsp;     * Devolve uma representação do objeto em formato textual.
+<i>274</i>&nbsp;     * @return String Representa o objeto em formato textual.
+<i>275</i>&nbsp;     */
+<i>276</i>&nbsp;    @Override
+<i>277</i>&nbsp;    public String toString() {
+<b class="fc"><i>278</i>&nbsp;       StringBuilder str = new StringBuilder();</b>
+<i>279</i>&nbsp;       
+<b class="fc"><i>280</i>&nbsp;       str.append(&quot;*****    ALUGUER    *****\n&quot;); </b>
+<b class="fc"><i>281</i>&nbsp;       str.append(&quot;Mail do Cliente: &quot;); str.append(this.mail); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>282</i>&nbsp;       str.append(&quot;Matrícula do Veículo: &quot;); str.append(this.matricula); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>283</i>&nbsp;       str.append(&quot;Data de início do aluguer: &quot;); str.append(this.dataInicio); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>284</i>&nbsp;       str.append(&quot;Data de fim do aluguer: &quot;); str.append(this.dataFim); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>285</i>&nbsp;       str.append(&quot;Custo da Viagem: &quot;); str.append(this.custoViagem); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>286</i>&nbsp;       str.append(&quot;Tempo a pé até ao veículo: &quot;); str.append(this.tempoAteVeiculo); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>287</i>&nbsp;       str.append(&quot;Tempo total da viagem: &quot;); str.append(this.tempoViagem); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>288</i>&nbsp;       str.append(&quot;Aluguer Aceite pelo Proprietário: &quot;); str.append(this.aceite); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>289</i>&nbsp;       str.append(&quot;Aluguer em lista de espera: &quot;); str.append(this.listaEspera); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>290</i>&nbsp;       str.append(&quot;Aluguer Realizado: &quot;); str.append(this.realizado); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>291</i>&nbsp;       str.append(&quot;Preço modificado pelo proprietário do veículo: &quot;); str.append(this.altPrice); str.append(&quot;\n&quot;);</b>
+<b class="fc"><i>292</i>&nbsp;       str.append(&quot;Estado da classificação: &quot;); str.append(this.estadoClassif); str.append(&quot;\n&quot;);</b>
+<i>293</i>&nbsp;        
+<b class="fc"><i>294</i>&nbsp;       return str.toString();         </b>
+<i>295</i>&nbsp;    }
+<i>296</i>&nbsp;    
+<i>297</i>&nbsp;    /**
+<i>298</i>&nbsp;     * Retorna uma cópia da instância.
+<i>299</i>&nbsp;     * @return Aluguer Um novo aluguer que é cópia do this.
+<i>300</i>&nbsp;     */
+<i>301</i>&nbsp;    @Override
+<i>302</i>&nbsp;    public Aluguer clone(){
+<b class="fc"><i>303</i>&nbsp;        return new Aluguer(this);</b>
+<i>304</i>&nbsp;    }
+<i>305</i>&nbsp;
+<i>306</i>&nbsp;    @Override
+<i>307</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>308</i>&nbsp;        return super.hashCode();</b>
+<i>309</i>&nbsp;    }
+<i>310</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 19:02</div>
+</div>
+</body>
+</html>
