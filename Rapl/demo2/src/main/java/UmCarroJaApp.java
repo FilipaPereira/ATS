@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import java.io.IOException;
 import java.util.InputMismatchException;
 
-public class UmCarroJaApp{
+public class UmCarroJaApp {
     
     /** Variáveis de Classe */
     
@@ -174,16 +174,23 @@ public class UmCarroJaApp{
     }
     
     public static void main(String[] args){
+        double[] before = EnergyCheckUtils.getEnergyStats();
         initApp();
         initMenus();
-        out.println(args[0]);
-        lerDadosTXT(args[0]);
+        lerDadosTXT("logs1.txt");
         out.println("NÚMERO UTILIZADORES: " + ucj.getNUsers());
         out.println("NÚMERO VEÍCULOS: " + ucj.getNVeiculos());
         out.println("NÚMERO ALUGUERES: " + ucj.getNAlugs());
         lerData();
+
         
         ucj.alugueresEfetuados();
+
+        double[] after = EnergyCheckUtils.getEnergyStats();
+
+        System.out.println("Energy consumption of dram: " + (after[0] - before[0])+ " Energy consumption of cpu: " + (after[1] - before[1])+ " Energy consumption of package: " + (after[2] - before[2]));
+
+        EnergyCheckUtils.ProfileDealloc();
 
         do{
             UmCarroJaApp.clearScreen();
@@ -1238,4 +1245,6 @@ public class UmCarroJaApp{
             ucj.classificarClienteJa(dados[0] + "@gmail.com", classificacao);
         }
     }
+
+
 }

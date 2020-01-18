@@ -12,3 +12,7 @@ lib_shared_CPUScaler:
 
 clean:
 	rm -f $(TARGET)
+
+run:
+	sudo javac EnergyCheckUtils.java
+	sudo java EnergyCheckUtils

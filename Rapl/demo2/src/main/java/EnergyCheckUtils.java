@@ -1,5 +1,4 @@
 package main.java;
-
 import java.lang.reflect.Field;
 public class EnergyCheckUtils {
 	public native static int scale(int freq);
@@ -20,7 +19,8 @@ public class EnergyCheckUtils {
 
 	public static int socketNum;
 	static {
-		System.setProperty("java.library.path", System.getProperty("user.dir"));
+		System.setProperty("java.library.path", System.getProperty("user.dir") + "/src/main/java");
+		System.out.println(System.getProperty("java.library.path"));
 		try {
 			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
 			fieldSysPath.setAccessible(true);
@@ -75,12 +75,15 @@ public class EnergyCheckUtils {
 
 
 	public static void main(String[] args) {
-
 		String[] fich = {"logs1.txt"};
 		double[] before = getEnergyStats();
 		//UmCarroJaApp.main(fich);
+        /*
+		try{
+			Thread.sleep(10000);
+		}catch (InterruptedException e){}
+         */
 		double[] after = getEnergyStats();
-			
 		System.out.println("Energy consumption of dram: " + (after[0] - before[0])+ " Energy consumption of cpu: " + (after[1] - before[1])+ " Energy consumption of package: " + (after[2] - before[2]));
 		
 		ProfileDealloc();
