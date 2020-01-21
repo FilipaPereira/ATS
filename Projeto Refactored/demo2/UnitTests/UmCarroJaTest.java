@@ -27,6 +27,16 @@ public class UmCarroJaTest {
         ucj.iniciarSessao(cl.getEmail(),cl.getPassword());
     }
 
+    @Test(expected = PasswordIncorretaException.class)
+    public void iniciarSessao2() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException {
+        Coordinate cords = new Coordinate(12.3,-21.5);
+        Cliente cl = new Cliente("Bruna", "54321", "54321@gmail.com", "54321", "Braga", new GregorianCalendar(), cords);
+        UmCarroJa ucj = new UmCarroJa();
+        ucj.registarUtilizador(cl);
+
+        ucj.iniciarSessao(cl.getEmail(),"lala");
+    }
+
     @Test
     public void existeUtilizador() {
         Coordinate cords = new Coordinate(12.3,-21.5);
@@ -41,8 +51,27 @@ public class UmCarroJaTest {
     }
 
 
-    @Test(expected = NaoExistemClientesException.class)
+    @Test
     public void get10ClientesKM() throws NaoExistemClientesException {
+        Cliente c1 = new Cliente("", "1", "1@gmail.com", "1", "", new GregorianCalendar(), new Coordinate(1,1));
+        Cliente c2 = new Cliente("", "2", "2@gmail.com", "2", "", new GregorianCalendar(), new Coordinate(1,1));
+        Cliente c3 = new Cliente("", "3", "3@gmail.com", "3", "", new GregorianCalendar(), new Coordinate(1,1));
+        c1.setNKM(12);
+        c2.setNKM(110);
+        c3.setNKM(50);
+        UmCarroJa ucj = new UmCarroJa();
+
+        try {
+            ucj.registarUtilizador(c1);
+            ucj.registarUtilizador(c2);
+            ucj.registarUtilizador(c3);
+        } catch (UtilizadorJaExisteException e) { System.out.println(e.getMessage()); }
+        List<Cliente> res = ucj.get10ClientesKm();
+        assertEquals(c2,res.get(0));
+    }
+
+    @Test(expected = NaoExistemClientesException.class)
+    public void get10ClientesKM2() throws NaoExistemClientesException {
         Proprietario p1 = new Proprietario();
         Proprietario p2 = new Proprietario();
         UmCarroJa ucj = new UmCarroJa();
@@ -52,6 +81,29 @@ public class UmCarroJaTest {
             ucj.registarUtilizador(p2);
         } catch (UtilizadorJaExisteException e) { System.out.println(e.getMessage()); }
         ucj.get10ClientesKm();
+    }
+
+    @Test
+    public void get10ClientesAlugueres() throws UtilizadorJaExisteException, NaoExistemClientesException {
+        UmCarroJa ucj = new UmCarroJa();
+        Cliente c1 = new Cliente("", "1", "1@gmail.com", "1", "", new GregorianCalendar(), new Coordinate(1,1));
+        Cliente c2 = new Cliente("", "2", "2@gmail.com", "2", "", new GregorianCalendar(), new Coordinate(1,1));
+        Cliente c3 = new Cliente("", "3", "3@gmail.com", "3", "", new GregorianCalendar(), new Coordinate(1,1));
+        Cliente c4 = new Cliente("", "4", "4@gmail.com", "4", "", new GregorianCalendar(), new Coordinate(1,1));
+        Cliente c5 = new Cliente("", "5", "5@gmail.com", "5", "", new GregorianCalendar(), new Coordinate(1,1));
+        c1.setNAlugueres(2);
+        c3.setNAlugueres(10);
+        c4.setNAlugueres(8);
+        c5.setNAlugueres(8);
+        ucj.registarUtilizador(c1);
+        ucj.registarUtilizador(c2);
+        ucj.registarUtilizador(c3);
+        ucj.registarUtilizador(c4);
+        ucj.registarUtilizador(c5);
+
+        List<Cliente> res = ucj.get10ClientesAlugueres();
+        assertEquals(c3,res.get(0));
+
     }
 
 
@@ -109,6 +161,23 @@ public class UmCarroJaTest {
         als.add(a3);
 
         assertEquals(als,ucj.alugueresClassificarCliente());
+    }
+
+    @Test(expected = NaoExistemAlugueresException.class)
+    public void alugueresClassificarCliente2() throws UtilizadorJaExisteException, VeiculoJaExisteException, UtilizadorNaoExisteException, PasswordIncorretaException, NaoExistemAlugueresException {
+        UmCarroJa ucj = new UmCarroJa();
+
+        Proprietario p = new Proprietario();
+        Veiculo v = new Veiculo();
+        p.setNIF("123");
+        v.setNIF("123");
+        v.setMatricula("AA-12-12");
+        ucj.registarVeiculo(v);
+        ucj.registarUtilizador(p);
+
+        ucj.iniciarSessao(p.getEmail(),p.getPassword());
+
+        ucj.alugueresClassificarCliente();
     }
 
     @Test
@@ -373,12 +442,13 @@ public class UmCarroJaTest {
         UmCarroJa ucj = new UmCarroJa();
 
         Cliente c = new Cliente();
+        c.setPosicao(new Coordinate(0.4,0.4));
         ucj.registarUtilizador(c);
         ucj.iniciarSessao(c.getEmail(),c.getPassword());
 
-        Veiculo v1 = new Veiculo("Ford","AZ-12-12","",90,3.45,1.3,100,new Coordinate(1,1),true);
-        Veiculo v2 = new Veiculo("Ford","DF-12-09","",92,2.70,1.3,120,new Coordinate(1,1),false);
-        Veiculo v3 = new Veiculo("Mercedes","LO-34-01","",110,3.70,1.9,120,new Coordinate(0,0),true);
+        Veiculo v1 = new Veiculo("Ford","AZ-12-12","",90,3.45,1.3,100,new Coordinate(4.5,1),true);
+        Veiculo v2 = new Veiculo("Citroen","DF-12-09","",92,2.70,1.3,120,new Coordinate(1,1),false);
+        Veiculo v3 = new Veiculo("Mercedes","LO-34-01","",110,3.70,1.9,120,new Coordinate(3,2),true);
 
 
         ucj.registarVeiculo(v1);
@@ -456,9 +526,8 @@ public class UmCarroJaTest {
         ucj.registarUtilizador(c);
         ucj.iniciarSessao(c.getEmail(),c.getPassword());
 
-        //2 disponiveis e com a mesma autonomia
         Veiculo v1 = new Veiculo("Ford","AZ-12-12","",90,3.45,1.3,100,new Coordinate(1,1),true);
-        Veiculo v2 = new Veiculo("Renault","XG-78-52","",80,3.25,1.22,90,new Coordinate(1,1),true);
+        Veiculo v2 = new Veiculo("Renault","XG-78-52","",80,3.25,1.22,100,new Coordinate(1,1),true);
         ucj.registarVeiculo(v1);
         ucj.registarVeiculo(v2);
 
@@ -501,6 +570,17 @@ public class UmCarroJaTest {
 
     }
 
+    @Test(expected = NaoEfetuouNenhumAluguerException.class)
+    public void getAlugueresCliente2() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException, NaoEfetuouNenhumAluguerException {
+        UmCarroJa ucj = new UmCarroJa();
+
+        Cliente c = new Cliente();
+        ucj.registarUtilizador(c);
+        ucj.iniciarSessao(c.getEmail(),c.getPassword());
+
+        ucj.getAlugueresCliente(c.getEmail());
+    }
+
     @Test
     public void maisPertoJa() throws UtilizadorNaoExisteException, PasswordIncorretaException, UtilizadorJaExisteException, VeiculoJaExisteException, NaoExistemVeiculosDisponiveisException {
         UmCarroJa ucj = new UmCarroJa();
@@ -511,7 +591,7 @@ public class UmCarroJaTest {
 
         CarroGasolina v1 = new CarroGasolina("Ford","AZ-12-12","",90,3.45,1.3,100,new Coordinate(2,1),true);
         CarroGasolina v2 = new CarroGasolina("Ford","DF-12-09","",92,2.70,1.3,120,new Coordinate(1,1),true);
-        CarroEletrico v3 = new CarroEletrico("Mercedes","LO-34-01","",110,3.70,1.9,120,new Coordinate(1,1),true);
+        CarroHibrido v3 = new CarroHibrido("Mercedes","LO-34-01","",110,3.70,1.9,120,new Coordinate(1,1),true);
 
 
         ucj.registarVeiculo(v1);

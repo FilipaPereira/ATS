@@ -24,11 +24,11 @@ public class ParDatasTest {
 
     @Test //Não houver aluguer para os dias do pedido
     public void isAvailable2() {
-        GregorianCalendar dataInicioPed = new GregorianCalendar(2019, Calendar.MARCH,20);
-        GregorianCalendar dataFimPed = new GregorianCalendar(2019, Calendar.MARCH,21);
+        GregorianCalendar dataInicioPed = new GregorianCalendar(2019, Calendar.MARCH,22);
+        GregorianCalendar dataFimPed = new GregorianCalendar(2019, Calendar.MARCH,23);
         ParDatas pdPedido = new ParDatas(dataInicioPed,dataFimPed);
-        GregorianCalendar dataInicioAlug = new GregorianCalendar(2019, Calendar.MARCH,22);
-        GregorianCalendar dataFimAlug = new GregorianCalendar(2019, Calendar.MARCH,23);
+        GregorianCalendar dataInicioAlug = new GregorianCalendar(2019, Calendar.MARCH,20);
+        GregorianCalendar dataFimAlug = new GregorianCalendar(2019, Calendar.MARCH,21);
         ParDatas pdAluguer = new ParDatas(dataInicioAlug,dataFimAlug);
 
         assertTrue(pdAluguer.isAvailable(pdPedido));
