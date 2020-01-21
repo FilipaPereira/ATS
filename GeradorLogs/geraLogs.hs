@@ -22,7 +22,7 @@ main = do
        alugueres <- generate $ execGerador (genAlugueres (read numAlugs :: Int) nifsClientes)
        let mats = getMatriculas carros
        classifs <- generate $ execGerador (genClassificacoes (read numClass :: Int) nifsClientes mats)
-       writeFile "logs.txt" $ unlines (users++carros++alugueres++classifs)
+       writeFile "logs.txt" $ unlines (["Logs"]++users++carros++alugueres++classifs)
 
 -- | Estado do Gerador
 data GeradorState = GeradorState StateProps StateClientes StateCarros
@@ -136,7 +136,7 @@ data Carro = Carro Tipo Marca Matricula NIF VelocidadeMed PpKm CPKm Autonomia Co
             deriving Show
 
 data Tipo = Gasolina
-          | Eletrico
+          | Electrico
           | Hibrido
           deriving Show
 
@@ -149,7 +149,7 @@ type CPKm          = Float
 type Autonomia     = Int
 
 genTipo :: Gen Tipo
-genTipo = frequency [(70,return Gasolina),(5,return Eletrico),(25,return Hibrido)]
+genTipo = frequency [(70,return Gasolina),(5,return Electrico),(25,return Hibrido)]
 
 genCPKm :: Gen CPKm
 genCPKm = choose (0.1,2)
